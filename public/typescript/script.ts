@@ -2,8 +2,9 @@ import Search from "./inputs/Search.js";
 import TabNav from "./TabNav.js";
 import ModalProtocol from "./modal/ModalProtocol.js";
 import NewProtocol from "./modal/NewProtocol.js";
-import ValidateCPF from "./inputs/ValidarCPF.js";
+import ValidateCPF from "./inputs/ValidateCPF.js";
 import StyleDeposit from "./inputs/StyleDeposit.js";
+import ValidateCNPJ from "./inputs/ValidateCNPJ.js";
 
 const searchProtocol = new Search(
     '[data-search="table"]',
@@ -36,10 +37,16 @@ const styleDeposit = new StyleDeposit(
 styleDeposit.init();
 
 const validateCpf = new ValidateCPF(
-    '[data-verify="cpf"]',
+    '[data-cpf="verify"]',
     "invalid"
 );
 validateCpf.init();
+
+const validateCnpj = new ValidateCNPJ(
+    '[data-cnpj="verify"]',
+    "invalid"
+);
+validateCnpj.init();
 
 const newProtocol = new NewProtocol(
     '[data-protocol="protocolo"]',
