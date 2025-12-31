@@ -1,0 +1,293 @@
+@import "tailwindcss";
+
+@theme {
+    --color-blue-100: #ebf8ff;
+    --color-blue-200: #bee3f8;
+    --color-blue-300: #90cdf4;
+    --color-blue-400: #4299e1;
+    --color-blue-500: #3b82f6;
+    --color-blue-600: #3182ce;
+    --color-blue-800: #24509f;
+
+    --color-green-50: #f6fef2;
+    --color-green-100: #c6f6d5;
+    --color-green-200: #9ae6b4;
+    --color-green-400: #48bb78;
+    --color-green-500: #22c55e;
+    --color-green-600: #38a169;
+    --color-green-700: #2f855a;
+    --color-green-moss: #648771;
+
+    --color-yellow-100: #fefcbf;
+    --color-yellow-300: #faf089;
+    --color-yellow-400: #f6e05e;
+    --color-yellow-600: #d69e2e;
+    --color-yellow-800: #975a16;
+
+    --color-red-100: #fef2f2;
+    --color-red-200: #fee2e2;
+    --color-red-300: #efa6a6;
+    --color-red-400: #e53e3e;
+    --color-red-700: #c53030;
+
+    --color-gray-50: #f8fafc;
+    --color-gray-100: #f1f5f9;
+    --color-gray-200: #e2e8f0;
+    --color-gray-300: #cbd5e1;
+    --color-gray-400: #94a3b8;
+    --color-gray-500: #64748b;
+    --color-gray-600: #475569;
+    --color-gray-700: #334155;
+    --color-gray-800: #1e293b;
+    --color-gray-900: #0f172a;
+
+    --font-sans: "Roboto", system-ui, -apple-system, sans-serif;
+
+    --animate-fadeRight: fadeRight 0.5s ease-in-out;
+    --animate-fadeLeft: fadeLeft 0.5s ease-in-out;
+
+    --animate-view: animateView 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    --animate-showContent: showContent 0.6s ease-in-out forwards;
+}
+
+@keyframes fadeRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes animateView {
+    0% {
+        inset: 50%;
+        border-radius: 100%;
+    }
+
+    100% {
+        opacity: 1;
+        inset: 0;
+        border-radius: 0;
+    }
+}
+
+@keyframes showContent {
+    0%,
+    50% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@layer components {
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        @apply relative font-sans min-h-screen bg-gray-50 text-gray-900 px-10 py-8 overflow-x-hidden;
+    }
+
+    .btn-blue {
+        @apply h-11 text-xl transition-colors font-medium bg-blue-500 rounded-lg shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] px-6 py-2 text-white flex items-center gap-3;
+        &:hover {
+            @apply bg-blue-800;
+        }
+    }
+
+    .btn-green {
+        @apply h-11 text-xl transition-colors font-medium bg-green-500 rounded-lg shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] px-6 py-2 text-white flex items-center gap-3;
+        &:hover {
+            @apply bg-green-600;
+        }
+    }
+
+    .notification-badge {
+        @apply bg-red-400 border-2 border-white rounded-full size-4 absolute top-0 -right-3;
+    }
+
+    .nav-btn {
+        @apply relative flex items-center justify-center border-b-3 border-transparent transition-colors;
+        &:hover {
+            @apply border-gray-300;
+        }
+    }
+
+    .nav-btn.active {
+        @apply relative flex items-center justify-center border-b-3 border-green-500 transition-colors;
+    }
+
+    .nav-text {
+        @apply py-4 font-medium text-lg tracking-wide leading-none text-gray-600;
+        &:hover {
+            @apply text-gray-800;
+        }
+    }
+
+    .nav-btn.active .nav-text {
+        @apply text-gray-900;
+    }
+
+    .search-bar {
+        @apply flex items-center bg-gray-100 rounded-lg shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] h-12 w-full;
+    }
+
+    .search-icon {
+        @apply absolute left-4 top-1/2 -translate-y-1/2 w-6 h-6;
+    }
+
+    .search-input {
+        @apply font-medium tracking-wide text-lg shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full h-full rounded-lg bg-gray-100 pl-14 pr-4 text-gray-800 placeholder-green-moss/70 focus:outline-none focus:border-green-600 focus:ring-2 focus:ring-green-600;
+    }
+
+    .info-search {
+        @apply hidden opacity-0 invisible animate-fadeRight text-base text-gray-700 text-end mt-2;
+    }
+
+    .info-search.show {
+        @apply block opacity-100 visible;
+    }
+
+    .table-content {
+        @apply hidden opacity-0 invisible animate-fadeLeft w-full table-auto border-collapse;
+    }
+
+    .table-content.show {
+        @apply table opacity-100 visible;
+    }
+
+    .table-header {
+        @apply bg-gray-100 rounded-tl-lg rounded-tr-lg border-b border-gray-200;
+    }
+
+    .table-content tbody {
+        @apply rounded-br-lg rounded-bl-lg;
+    }
+
+    .table-header-cell {
+        @apply px-4 py-3 text-left text-lg font-bold text-green-moss uppercase tracking-wider whitespace-nowrap;
+    }
+
+    .table-cell {
+        @apply font-medium text-gray-700 px-4 py-3 text-left text-lg tracking-wider border-b border-gray-200 whitespace-nowrap;
+    }
+
+    .table-cell:first-of-type {
+        @apply font-semibold;
+    }
+
+    .table-cell:nth-of-type(4) {
+        @apply truncate max-w-[230px];
+    }
+
+    .table-cell:nth-of-type(6) {
+        @apply font-semibold;
+    }
+
+    .table-cell:nth-of-type(8) {
+        @apply cursor-pointer font-medium;
+    }
+
+    .row-deposit {
+        @apply bg-yellow-300!;
+    }
+
+    .row-defeated {
+        @apply bg-red-200!;
+    }
+
+    .row-completed {
+        @apply bg-green-200!;
+    }
+
+    .table-row.row-search {
+        @apply bg-blue-200!;
+    }
+
+    .table-row.row-deposit > .table-cell:first-of-type,
+    .table-row.row-deposit > .table-cell:nth-of-type(6) {
+        @apply text-yellow-800;
+    }
+
+    .table-row.row-defeated > .table-cell:first-of-type,
+    .table-row.row-defeated > .table-cell:nth-of-type(6) {
+        @apply text-red-800;
+    }
+
+    .group-input {
+        @apply flex flex-col gap-3 basis-[350px];
+    }
+
+    .group-input label {
+        @apply font-medium text-gray-600 text-xl tracking-wide;
+    }
+
+    .group-input input,
+    .group-input select {
+        @apply font-medium text-lg shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] rounded-lg bg-gray-100 px-5 py-4 text-gray-600 placeholder-green-moss/70 focus:outline-none focus:border-green-600 focus:ring-2 focus:ring-green-600;
+    }
+
+    .group-input input[data-verify="cpf"].invalid {
+        @apply border-2 border-red-400 bg-red-200 focus:ring-red-400;
+    }
+
+    .group-input select {
+        @apply appearance-none bg-[url('https://api.iconify.design/heroicons:chevron-down-20-solid.svg?color=%234b5563')] bg-no-repeat bg-position-[right_1.25rem_center] bg-size-[1.5rem_1.5rem];
+    }
+
+    /* Remove default arrows/spinners from number inputs */
+    .group-input input[type="number"]::-webkit-outer-spin-button,
+    .group-input input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    .group-input input[type="number"] {
+        -moz-appearance: textfield;
+    }
+
+    .group-input input[type="date"]::-webkit-calendar-picker-indicator {
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        cursor: pointer;
+    }
+
+    .group-input input[type="date"] {
+        @apply relative bg-no-repeat bg-position-[right_1.25rem_center] bg-size-[1.5rem_1.5rem];
+    }
+
+    .group-input input[type="date"].date-add {
+        @apply bg-[url('../images/calender-add.svg')];
+    }
+
+    .group-input input[type="date"].date-check {
+        @apply bg-[url('../images/calender-check.svg')];
+    }
+
+    .group-input input[type="date"].date-alert {
+        @apply bg-[url('../images/calender-invalid.svg')];
+    }
+}

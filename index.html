@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Exigências</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com"/>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="public/styles/output.css"/>
+    </head>
+    <body>
+        <header class="w-full px-4 py-4">
+            <div class="flex flex-wrap items-center justify-between gap-8">
+                <h1 class="text-4xl font-black text-gray-900 leading-[45px]">
+                    Exigências
+                </h1>
+                <div class="flex items-center gap-5">
+                    <div class="relative">
+                        <button class="btn-blue cursor-pointer">
+                            <img
+                                src="./public/images/save.svg"
+                                alt="Salvar"
+                                class="w-5 h-5"
+                            />
+                            <span class="btn-text">Salvar</span>
+                        </button>
+                        <div
+                            class="absolute -top-2 right-[6px] flex items-start"
+                        >
+                            <div class="notification-badge"></div>
+                        </div>
+                    </div>
+                    <button
+                        data-protocol="buttonNew"
+                        class="btn-green cursor-pointer"
+                    >
+                        <img
+                            src="./public/images/plus.svg"
+                            alt="Nova Exigência"
+                            class="w-4 h-4"
+                        />
+                        <span class="btn-text">Nova Exigência</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <nav class="w-full border-b border-gray-200">
+            <div class="flex gap-8 items-start px-4">
+                <button data-buttonTabNav="public" class="nav-btn active">
+                    <span class="nav-text">Escrituras Públicas</span>
+                </button>
+                <button data-buttonTabNav="doc" class="nav-btn">
+                    <span class="nav-text">Documentos Particulares</span>
+                </button>
+                <button data-buttonTabNav="title" class="nav-btn">
+                    <span class="nav-text">Títulos Judiciais</span>
+                </button>
+                <button data-buttonTabNav="deposit" class="nav-btn">
+                    <span class="nav-text">Depósitos Prévios Vencidos</span>
+                </button>
+                <button data-buttonTabNav="defeated" class="nav-btn">
+                    <span class="nav-text">Exigências Vencidas</span>
+                </button>
+                <button data-buttonTabNav="completed" class="nav-btn">
+                    <span class="nav-text">Exigências Concluídas</span>
+                </button>
+            </div>
+        </nav>
+
+        <div class="px-4 py-6">
+            <div class="search-bar relative">
+                <img
+                    src="./public/images/search.svg"
+                    alt="Pesquisar"
+                    class="search-icon"
+                />
+                <input
+                    type="text"
+                    data-search="input"
+                    class="search-input"
+                    placeholder="Pesquisar Protocolo"
+                />
+            </div>
+            <p class="info-search">
+                Precione <b class="font-semibold">Enter</b> para pesquisar
+            </p>
+        </div>
+
+        <main class="px-4 py-6">
+            <div class="overflow-x-auto">
+                <table data-tableNav="public" class="table-content show">
+                    <thead class="table-header">
+                        <tr>
+                            <th class="table-header-cell">Protocolo</th>
+                            <th class="table-header-cell">Cadastro</th>
+                            <th class="table-header-cell">
+                                Envio da Exigência
+                            </th>
+                            <th class="table-header-cell">Interessado</th>
+                            <th class="table-header-cell">CPF da Parte</th>
+                            <th class="table-header-cell">Vencimento</th>
+                            <th class="table-header-cell">Depósito Prévio</th>
+                            <th class="table-header-cell">Estado</th>
+                            <th class="table-header-cell"></th>
+                        </tr>
+                    </thead>
+                    <tbody data-search="table">
+                        <tr class="table-row row-deposit">
+                            <td class="table-cell">238491</td>
+                            <td class="table-cell">12/10/2023</td>
+                            <td class="table-cell">14/10/2023</td>
+                            <td class="table-cell">Construtora Sol Nascente</td>
+                            <td class="table-cell">12.345.678/0001-90</td>
+                            <td class="table-cell">20/11/2023</td>
+                            <td class="table-cell">R$ 5.400,00</td>
+                            <td class="table-cell">Vigente</td>
+                            <td class="table-cell text-center">
+                                <div
+                                    class="flex items-center gap-2 cursor-pointer *:size-2 *:rounded-full *:bg-green-moss"
+                                >
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="table-row row-defeated">
+                            <td class="table-cell">238102</td>
+                            <td class="table-cell">01/09/2023</td>
+                            <td class="table-cell">05/09/2023</td>
+                            <td class="table-cell">João da Silva</td>
+                            <td class="table-cell">123.456.789-00</td>
+                            <td class="table-cell date-vencida">05/10/2023</td>
+                            <td class="table-cell text-green-moss">-</td>
+                            <td class="table-cell">
+                                <span class="status-badge status-vencido"
+                                    >Vencido</span
+                                >
+                            </td>
+                            <td class="table-cell text-center">
+                                <div
+                                    class="flex items-center gap-2 cursor-pointer *:size-2 *:rounded-full *:bg-green-moss"
+                                >
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="table-row">
+                            <td class="table-cell">239001</td>
+                            <td class="table-cell">20/10/2023</td>
+                            <td class="table-cell">21/10/2023</td>
+                            <td class="table-cell">Maria Oliveira</td>
+                            <td class="table-cell">987.654.321-11</td>
+                            <td class="table-cell">20/11/2023</td>
+                            <td class="table-cell text-green-moss">-</td>
+                            <td class="table-cell">
+                                <span class="status-badge status-em-analise"
+                                    >Em Análise</span
+                                >
+                            </td>
+                            <td class="table-cell text-center">
+                                <div
+                                    class="flex items-center gap-2 cursor-pointer *:size-2 *:rounded-full *:bg-green-moss"
+                                >
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="table-row table-row-completed">
+                            <td class="table-cell">239045</td>
+                            <td class="table-cell">22/10/2023</td>
+                            <td class="table-cell">23/10/2023</td>
+                            <td class="table-cell">Roberto Pereira</td>
+                            <td class="table-cell">555.444.333-22</td>
+                            <td class="table-cell">22/11/2023</td>
+                            <td class="table-cell text-green-moss">-</td>
+                            <td class="table-cell">
+                                <span class="status-badge status-concluido"
+                                    >Concluído</span
+                                >
+                            </td>
+                            <td class="table-cell text-center">
+                                <div
+                                    class="flex items-center gap-2 cursor-pointer *:size-2 *:rounded-full *:bg-green-moss"
+                                >
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table data-tableNav="doc" class="table-content">
+                    <thead class="table-header">
+                        <tr>
+                            <th class="table-header-cell">Protocolo</th>
+                            <th class="table-header-cell">Cadastro</th>
+                            <th class="table-header-cell">
+                                Envio da Exigência
+                            </th>
+                            <th class="table-header-cell">Interessado</th>
+                            <th class="table-header-cell">CPF da Parte</th>
+                            <th class="table-header-cell">Vencimento</th>
+                            <th class="table-header-cell">Depósito Prévio</th>
+                            <th class="table-header-cell">Estado</th>
+                            <th class="table-header-cell"></th>
+                        </tr>
+                    </thead>
+                    <tbody data-search="table">
+                        <tr class="table-row">
+                            <td class="table-cell font-medium">238491</td>
+                            <td class="table-cell">12/10/2023</td>
+                            <td class="table-cell">14/10/2023</td>
+                            <td class="table-cell">Construtora Sol Nascente</td>
+                            <td class="table-cell">12.345.678/0001-90</td>
+                            <td class="table-cell">20/11/2023</td>
+                            <td class="table-cell">R$ 5.400,00</td>
+                            <td class="table-cell">
+                                <span class="status-badge status-aguardando"
+                                    >Aguardando</span
+                                >
+                            </td>
+                            <td class="table-cell text-center">
+                                <div
+                                    class="flex items-center gap-2 cursor-pointer *:size-2 *:rounded-full *:bg-green-moss"
+                                >
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table data-tableNav="title" class="table-content">
+                    <thead class="table-header">
+                        <tr>
+                            <th class="table-header-cell">Protocolo</th>
+                            <th class="table-header-cell">Cadastro</th>
+                            <th class="table-header-cell">
+                                Envio da Exigência
+                            </th>
+                            <th class="table-header-cell">Interessado</th>
+                            <th class="table-header-cell">CPF da Parte</th>
+                            <th class="table-header-cell">Vencimento</th>
+                            <th class="table-header-cell">Depósito Prévio</th>
+                            <th class="table-header-cell">Estado</th>
+                            <th class="table-header-cell"></th>
+                        </tr>
+                    </thead>
+                    <tbody data-search="table">
+                        <tr class="table-row row-deposit">
+                            <td class="table-cell font-medium">238491</td>
+                            <td class="table-cell">12/10/2023</td>
+                            <td class="table-cell">14/10/2023</td>
+                            <td class="table-cell">Construtora Sol Nascente</td>
+                            <td class="table-cell">12.345.678/0001-90</td>
+                            <td class="table-cell">20/11/2023</td>
+                            <td class="table-cell">R$ 5.400,00</td>
+                            <td class="table-cell">
+                                <span class="status-badge status-aguardando"
+                                    >Aguardando</span
+                                >
+                            </td>
+                            <td class="table-cell text-center">
+                                <div
+                                    class="flex items-center gap-2 cursor-pointer transition-colors *:size-2 *:rounded-full *:bg-green-moss"
+                                >
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table data-tableNav="deposit" class="table-content">
+                    <thead class="table-header">
+                        <tr>
+                            <th class="table-header-cell">Protocolo</th>
+                            <th class="table-header-cell">Cadastro</th>
+                            <th class="table-header-cell">
+                                Envio da Exigência
+                            </th>
+                            <th class="table-header-cell">Interessado</th>
+                            <th class="table-header-cell">CPF da Parte</th>
+                            <th class="table-header-cell">Vencimento</th>
+                            <th class="table-header-cell">Depósito Prévio</th>
+                            <th class="table-header-cell">Estado</th>
+                            <th class="table-header-cell"></th>
+                        </tr>
+                    </thead>
+                    <tbody data-search="table">
+                        <tr class="table-row row-deposit">
+                            <td class="table-cell font-medium">238491</td>
+                            <td class="table-cell">12/10/2023</td>
+                            <td class="table-cell">14/10/2023</td>
+                            <td class="table-cell">Construtora Sol Nascente</td>
+                            <td class="table-cell">12.345.678/0001-90</td>
+                            <td class="table-cell">20/11/2023</td>
+                            <td class="table-cell">R$ 5.400,00</td>
+                            <td class="table-cell">
+                                <span class="status-badge status-aguardando"
+                                    >Aguardando</span
+                                >
+                            </td>
+                            <td class="table-cell text-center">
+                                <div
+                                    class="flex items-center gap-2 cursor-pointer *:size-2 *:rounded-full *:bg-green-moss"
+                                >
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table data-tableNav="defeated" class="table-content">
+                    <thead class="table-header">
+                        <tr>
+                            <th class="table-header-cell">Protocolo</th>
+                            <th class="table-header-cell">Cadastro</th>
+                            <th class="table-header-cell">
+                                Envio da Exigência
+                            </th>
+                            <th class="table-header-cell">Interessado</th>
+                            <th class="table-header-cell">CPF da Parte</th>
+                            <th class="table-header-cell">Vencimento</th>
+                            <th class="table-header-cell">Depósito Prévio</th>
+                            <th class="table-header-cell">Estado</th>
+                            <th class="table-header-cell"></th>
+                        </tr>
+                    </thead>
+                    <tbody data-search="table">
+                        <tr class="table-row row-deposit">
+                            <td class="table-cell font-medium">238491</td>
+                            <td class="table-cell">12/10/2023</td>
+                            <td class="table-cell">14/10/2023</td>
+                            <td class="table-cell">Construtora Sol Nascente</td>
+                            <td class="table-cell">12.345.678/0001-90</td>
+                            <td class="table-cell">20/11/2023</td>
+                            <td class="table-cell">R$ 5.400,00</td>
+                            <td class="table-cell">
+                                <span class="status-badge status-aguardando"
+                                    >Aguardando</span
+                                >
+                            </td>
+                            <td class="table-cell text-center">
+                                <div
+                                    class="flex items-center gap-2 cursor-pointer *:size-2 *:rounded-full *:bg-green-moss"
+                                >
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table data-tableNav="completed" class="table-content">
+                    <thead class="table-header">
+                        <tr>
+                            <th class="table-header-cell">Protocolo</th>
+                            <th class="table-header-cell">Cadastro</th>
+                            <th class="table-header-cell">
+                                Envio da Exigência
+                            </th>
+                            <th class="table-header-cell">Interessado</th>
+                            <th class="table-header-cell">CPF da Parte</th>
+                            <th class="table-header-cell">Vencimento</th>
+                            <th class="table-header-cell">Depósito Prévio</th>
+                            <th class="table-header-cell">Estado</th>
+                            <th class="table-header-cell"></th>
+                        </tr>
+                    </thead>
+                    <tbody data-search="table">
+                        <tr class="table-row row-deposit">
+                            <td class="table-cell font-medium">238491</td>
+                            <td class="table-cell">12/10/2023</td>
+                            <td class="table-cell">14/10/2023</td>
+                            <td class="table-cell">Construtora Sol Nascente</td>
+                            <td class="table-cell">12.345.678/0001-90</td>
+                            <td class="table-cell">20/11/2023</td>
+                            <td class="table-cell">R$ 5.400,00</td>
+                            <td class="table-cell">
+                                <span class="status-badge status-aguardando"
+                                    >Aguardando</span
+                                >
+                            </td>
+                            <td class="table-cell text-center">
+                                <div
+                                    class="flex items-center gap-2 cursor-pointer *:size-2 *:rounded-full *:bg-green-moss"
+                                >
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+
+        <!-- modal create new exigencia -->
+        <div
+            data-protocol="modal"
+            class="animate-view fixed inset-0 z-50 bg-gray-50 hidden"
+        >
+            <svg
+                data-protocol="buttonClose"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 -960 960 960"
+                fill="currentColor"
+                class="cursor-pointer animate-showContent absolute top-8 right-12 w-20 h-20 p-3 text-gray-600 hover:text-red-400 transition-colors"
+            >
+                <path
+                    d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"
+                />
+            </svg>
+            <section
+                class="animate-showContent relative max-w-[1200px] w-full mx-auto px-10 py-8"
+            >
+                <header>
+                    <h2
+                        class="mt-5 text-center text-4xl text-gray-700 font-bold"
+                    >
+                        Adicionar nova exigência
+                    </h2>
+                </header>
+                <form action="#" class="mt-15">
+                    <section class="flex flex-wrap gap-8">
+                        <div class="group-input">
+                            <label for="protocolo">Protocolo:</label>
+                            <input
+                                data-protocol="protocolo"
+                                type="text"
+                                id="protocolo"
+                                name="protocolo"
+                                placeholder="100.000"
+                            />
+                        </div>
+                        <div class="group-input">
+                            <label for="typeDocument">Tipo de documento:</label>
+                            <select
+                                name="typeDocument"
+                                id="typeDocument"
+                                data-protocol="typeDocument"
+                            >
+                                <option value="public">
+                                    Escritura Pública
+                                </option>
+                                <option value="doc">
+                                    Documento Particular
+                                </option>
+                                <option value="title">Título Judicial</option>
+                            </select>
+                        </div>
+                        <div class="group-input">
+                            <label for="dataCadastro">Data do cadastro:</label>
+                            <input
+                                data-protocol="dateCadastro"
+                                class="date-add"
+                                type="date"
+                                id="dataCadastro"
+                                name="dataCadastro"
+                            />
+                        </div>
+                        <div class="group-input">
+                            <label for="dataEnvio">Data do envio:</label>
+                            <input
+                                data-protocol="dateEnvio"
+                                class="date-check"
+                                type="date"
+                                id="dataEnvio"
+                                name="dataEnvio"
+                            />
+                        </div>
+                        <div class="group-input">
+                            <label for="interessado">Interessado:</label>
+                            <input
+                                data-protocol="interessado"
+                                type="text"
+                                id="interessado"
+                                name="interessado"
+                                placeholder="Nome da pessoa"
+                            />
+                        </div>
+                        <div class="group-input">
+                            <label for="cpf">CPF ou CNPJ da parte:</label>
+                            <input
+                                data-verify="cpf"
+                                data-protocol="cpf"
+                                type="text"
+                                id="cpf"
+                                name="cpf"
+                            />
+                        </div>
+                        <div class="group-input">
+                            <label for="dateVencimento"
+                                >Data do vencimento:</label
+                            >
+                            <input
+                                data-protocol="dateVencimento"
+                                class="date-alert"
+                                type="date"
+                                id="dateVencimento"
+                                name="dateVencimento"
+                            />
+                        </div>
+                        <div class="group-input">
+                            <label for="deposito">Data do depósito:</label>
+                            <input
+                                data-protocol="deposit"
+                                type="text"
+                                id="deposito"
+                                name="deposito"
+                                placeholder="R$ 10245,60"
+                            />
+                        </div>
+                    </section>
+                    <div class="flex justify-end mt-10">
+                        <button class="btn-green" data-protocol="buttonAdd" title="enter">
+                            <img
+                                src="./public/images/plus.svg"
+                                alt="Adicionar"
+                                class="w-4 h-4"
+                            />
+                            <span class="btn-text">Adicionar</span>
+                        </button>
+                    </div>
+                </form>
+            </section>
+        </div>
+
+        <a
+            href="https://github.com/Leonardo2831"
+            target="_blank"
+            class="absolute z-20 bottom-10 right-10 mt-5 p-2 block text-end text-xs text-gray-600 font-medium cursor-pointer hover:text-gray-800 transition-colors"
+        >
+            <b class="font-semibold">Autor:</b> Leonardo Reis Ferraz
+        </a>
+
+        <script type="module" src="./public/js/script.js"></script>
+    </body>
+</html>
