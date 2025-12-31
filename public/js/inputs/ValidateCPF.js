@@ -2,12 +2,15 @@ export default class ValidateCPF {
     constructor(inputsCPF, classError) {
         this.eventInput = (event) => {
             const input = event.currentTarget;
-            input.classList.remove(this.classError);
+            const cleaned = this.clean(input.value);
+            if (!input || cleaned.length > 11)
+                return;
             this.justNumbers(input);
             this.validateChange(input);
         };
         this.inputsCPF = document.querySelectorAll(inputsCPF);
         this.classError = classError;
+        this.eventInput = this.eventInput.bind(this);
     }
     clean(cpf) {
         return cpf.replace(/\D/g, "");
@@ -65,10 +68,10 @@ export default class ValidateCPF {
             input.value = cleaned;
     }
     validateChange(cpfElement) {
+        cpfElement.classList.remove(this.classError);
         const cpfSize = cpfElement.value.length;
-        if (cpfSize >= 11 && cpfSize <= 14) {
+        if (cpfSize >= 11 && cpfSize < 14) {
             if (this.validate(cpfElement.value)) {
-                console.log('ta indo');
                 cpfElement.value = this.formatar(cpfElement.value);
                 cpfElement.classList.remove(this.classError);
             }
@@ -79,7 +82,7 @@ export default class ValidateCPF {
     }
     addEvent() {
         this.inputsCPF.forEach((input) => {
-            input.oninput = this.eventInput;
+            input.addEventListener("input", this.eventInput);
         });
     }
     init() {
