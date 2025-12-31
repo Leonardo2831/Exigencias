@@ -824,7 +824,7 @@
       outline-style: none;
     }
   }
-  .group-input input[data-verify="cpf"].invalid {
+  .group-input input[data-cpf="verify"].invalid, .group-input input[data-cnpj="verify"].invalid {
     border-style: var(--tw-border-style);
     border-width: 2px;
     border-color: var(--color-red-400);
