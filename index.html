@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
-        <meta charset="UTF-8"/>
+        <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Exigências</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com"/>
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
             href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
             rel="stylesheet"
         />
-        <link rel="stylesheet" href="public/styles/output.css"/>
+        <link rel="stylesheet" href="public/styles/output.css" />
     </head>
     <body>
         <header class="w-full px-4 py-4">
@@ -110,7 +110,7 @@
                         </tr>
                     </thead>
                     <tbody data-search="table">
-                        <tr class="table-row row-deposit">
+                        <tr data-id="0" class="table-row row-deposit">
                             <td class="table-cell">238491</td>
                             <td class="table-cell">12/10/2023</td>
                             <td class="table-cell">14/10/2023</td>
@@ -119,7 +119,7 @@
                             <td class="table-cell">20/11/2023</td>
                             <td class="table-cell">R$ 5.400,00</td>
                             <td class="table-cell">Vigente</td>
-                            <td class="table-cell text-center">
+                            <td data-menuProtocol="button" class="table-cell text-center">
                                 <div
                                     class="flex items-center gap-2 cursor-pointer *:size-2 *:rounded-full *:bg-green-moss"
                                 >
@@ -129,7 +129,7 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr class="table-row row-defeated">
+                        <tr data-id="1" class="table-row row-defeated">
                             <td class="table-cell">238102</td>
                             <td class="table-cell">01/09/2023</td>
                             <td class="table-cell">05/09/2023</td>
@@ -142,7 +142,7 @@
                                     >Vencido</span
                                 >
                             </td>
-                            <td class="table-cell text-center">
+                            <td data-menuProtocol="button" class="table-cell text-center">
                                 <div
                                     class="flex items-center gap-2 cursor-pointer *:size-2 *:rounded-full *:bg-green-moss"
                                 >
@@ -152,7 +152,7 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr class="table-row">
+                        <tr data-id="2" class="table-row">
                             <td class="table-cell">239001</td>
                             <td class="table-cell">20/10/2023</td>
                             <td class="table-cell">21/10/2023</td>
@@ -165,7 +165,7 @@
                                     >Em Análise</span
                                 >
                             </td>
-                            <td class="table-cell text-center">
+                            <td data-menuProtocol="button" class="table-cell text-center">
                                 <div
                                     class="flex items-center gap-2 cursor-pointer *:size-2 *:rounded-full *:bg-green-moss"
                                 >
@@ -175,7 +175,7 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr class="table-row table-row-completed">
+                        <tr data-id="3" class="table-row table-row-completed">
                             <td class="table-cell">239045</td>
                             <td class="table-cell">22/10/2023</td>
                             <td class="table-cell">23/10/2023</td>
@@ -188,7 +188,7 @@
                                     >Concluído</span
                                 >
                             </td>
-                            <td class="table-cell text-center">
+                            <td data-menuProtocol="button" class="table-cell text-center">
                                 <div
                                     class="flex items-center gap-2 cursor-pointer *:size-2 *:rounded-full *:bg-green-moss"
                                 >
@@ -217,7 +217,7 @@
                         </tr>
                     </thead>
                     <tbody data-search="table">
-                        <tr class="table-row">
+                        <tr data-id="4" class="table-row">
                             <td class="table-cell font-medium">238491</td>
                             <td class="table-cell">12/10/2023</td>
                             <td class="table-cell">14/10/2023</td>
@@ -230,7 +230,7 @@
                                     >Aguardando</span
                                 >
                             </td>
-                            <td class="table-cell text-center">
+                            <td data-menuProtocol="button" class="table-cell text-center">
                                 <div
                                     class="flex items-center gap-2 cursor-pointer *:size-2 *:rounded-full *:bg-green-moss"
                                 >
@@ -243,7 +243,7 @@
                     </tbody>
                 </table>
                 <table data-tableNav="title" class="table-content">
-                    <thead class="table-header">
+                    <thead data-id="5" class="table-header">
                         <tr>
                             <th class="table-header-cell">Protocolo</th>
                             <th class="table-header-cell">Cadastro</th>
@@ -259,7 +259,7 @@
                         </tr>
                     </thead>
                     <tbody data-search="table">
-                        <tr class="table-row row-deposit">
+                        <tr data-id="6" class="table-row row-deposit">
                             <td class="table-cell font-medium">238491</td>
                             <td class="table-cell">12/10/2023</td>
                             <td class="table-cell">14/10/2023</td>
@@ -272,7 +272,7 @@
                                     >Aguardando</span
                                 >
                             </td>
-                            <td class="table-cell text-center">
+                            <td data-menuProtocol="button" class="table-cell text-center">
                                 <div
                                     class="flex items-center gap-2 cursor-pointer transition-colors *:size-2 *:rounded-full *:bg-green-moss"
                                 >
@@ -301,7 +301,7 @@
                         </tr>
                     </thead>
                     <tbody data-search="table">
-                        <tr class="table-row row-deposit">
+                        <tr data-id="7" class="table-row row-deposit">
                             <td class="table-cell font-medium">238491</td>
                             <td class="table-cell">12/10/2023</td>
                             <td class="table-cell">14/10/2023</td>
@@ -314,7 +314,7 @@
                                     >Aguardando</span
                                 >
                             </td>
-                            <td class="table-cell text-center">
+                            <td data-menuProtocol="button" class="table-cell text-center">
                                 <div
                                     class="flex items-center gap-2 cursor-pointer *:size-2 *:rounded-full *:bg-green-moss"
                                 >
@@ -343,7 +343,7 @@
                         </tr>
                     </thead>
                     <tbody data-search="table">
-                        <tr class="table-row row-deposit">
+                        <tr data-id="8" class="table-row row-deposit">
                             <td class="table-cell font-medium">238491</td>
                             <td class="table-cell">12/10/2023</td>
                             <td class="table-cell">14/10/2023</td>
@@ -356,7 +356,7 @@
                                     >Aguardando</span
                                 >
                             </td>
-                            <td class="table-cell text-center">
+                            <td data-menuProtocol="button" class="table-cell text-center">
                                 <div
                                     class="flex items-center gap-2 cursor-pointer *:size-2 *:rounded-full *:bg-green-moss"
                                 >
@@ -385,7 +385,7 @@
                         </tr>
                     </thead>
                     <tbody data-search="table">
-                        <tr class="table-row row-deposit">
+                        <tr data-id="9" class="table-row row-deposit">
                             <td class="table-cell font-medium">238491</td>
                             <td class="table-cell">12/10/2023</td>
                             <td class="table-cell">14/10/2023</td>
@@ -398,7 +398,7 @@
                                     >Aguardando</span
                                 >
                             </td>
-                            <td class="table-cell text-center">
+                            <td data-menuProtocol="button" class="table-cell text-center">
                                 <div
                                     class="flex items-center gap-2 cursor-pointer *:size-2 *:rounded-full *:bg-green-moss"
                                 >
@@ -533,7 +533,11 @@
                         </div>
                     </section>
                     <div class="flex justify-end mt-10">
-                        <button class="btn-green" data-protocol="buttonAdd" title="enter">
+                        <button
+                            class="btn-green"
+                            data-protocol="buttonAdd"
+                            title="enter"
+                        >
                             <img
                                 src="./public/images/plus.svg"
                                 alt="Adicionar"
@@ -545,6 +549,33 @@
                 </form>
             </section>
         </div>
+
+        <menu data-menuProtocol="modal" class="menu-protocol">
+            <li data-send="vencidos">
+                Vencidos
+                <img
+                    src="./public/images/send-red.svg"
+                    alt="Enviar para Vencidos"
+                />
+            </li>
+            <li data-send="depositos">
+                Depósito Prévio
+                <img
+                    src="./public/images/send-yellow.svg"
+                    alt="Enviar para Vencidos com Depósito Prévio"
+                />
+            </li>
+            <li data-send="concluidos">
+                Concluídos
+                <img
+                    src="./public/images/send-green.svg"
+                    alt="Enviar para Concluídos"
+                />
+            </li>
+            <li data-send="delete">
+                Excluir <img src="./public/images/delete.svg" alt="Excluir" />
+            </li>
+        </menu>
 
         <a
             href="https://github.com/Leonardo2831"
