@@ -1,3 +1,5 @@
+import eventSelect from "../inputs/eventSelect.js";
+
 export default class NewProtocol {
     protocol: HTMLInputElement | null;
     dateCadastro: HTMLInputElement | null;
@@ -35,7 +37,13 @@ export default class NewProtocol {
         this.buttonAdd = document.querySelector(buttonAdd);
     }
 
+    addEvents(){
+        eventSelect();
+    }
+
     init(): NewProtocol {
+        this.addEvents();
+
         return this;
     }
 }
