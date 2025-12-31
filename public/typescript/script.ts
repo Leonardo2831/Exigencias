@@ -5,6 +5,8 @@ import NewProtocol from "./modal/NewProtocol.js";
 import ValidateCPF from "./inputs/ValidateCPF.js";
 import StyleDeposit from "./inputs/StyleDeposit.js";
 import ValidateCNPJ from "./inputs/ValidateCNPJ.js";
+import addEventsWindow from "./events-window/addEventsWindow.js";
+import MenuProtocol from "./modal/MenuProtocol.js";
 
 const searchProtocol = new Search(
     '[data-search="table"]',
@@ -60,3 +62,14 @@ const newProtocol = new NewProtocol(
     '[data-protocol="buttonAdd"]'
 );
 newProtocol.init();
+
+const menuProtocol = new MenuProtocol(
+    '[data-menuProtocol="button"]',
+    '[data-menuProtocol="modal"]',
+    '[data-send="vencidos"]',
+    '[data-send="depositos"]',
+    '[data-send="concluidos"]',
+    '[data-send="delete"]',
+    "show",
+);
+addEventsWindow(menuProtocol);
