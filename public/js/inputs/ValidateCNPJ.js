@@ -1,7 +1,8 @@
-export default class ValidarCNPJ {
+export default class ValidateCNPJ {
     constructor(inputs, classError) {
         this.inputs = document.querySelectorAll(inputs);
         this.classError = classError;
+        this.eventInput = this.eventInput.bind(this);
     }
     clean(cnpj) {
         return cnpj.replace(/\D/g, "");
@@ -68,8 +69,10 @@ export default class ValidarCNPJ {
         return verifyCnpj;
     }
     validateChange(input) {
+        input.classList.remove(this.classError);
         const cnpj = this.clean(input.value);
         if (cnpj.length >= 14) {
+            console.log('entrou');
             if (this.validate(cnpj)) {
                 input.value = this.formatar(cnpj);
                 input.classList.remove(this.classError);
@@ -88,7 +91,9 @@ export default class ValidarCNPJ {
     }
     eventInput(event) {
         const input = event.currentTarget;
-        input.classList.remove(this.classError);
+        const cleaned = this.clean(input.value);
+        if (!input || cleaned.length <= 11)
+            return;
         this.justNumbers(input);
         this.validateChange(input);
     }
@@ -98,6 +103,7 @@ export default class ValidarCNPJ {
         });
     }
     init() {
+        console.log(this.inputs);
         if (this.inputs.length)
             this.addEvent();
         return this;
