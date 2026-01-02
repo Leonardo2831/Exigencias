@@ -8,7 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import eventSelect from "../inputs/eventSelect.js";
-import createStructProtocol from "./createStructProtocol.js";
+import createStructProtocol from "../createStructProtocol.js";
 export default class NewProtocol {
     constructor(form, protocol, typeDocument, dateCadastro, dateEnvio, interessado, cpf, dateVencimento, deposito, buttonAdd, urlPost) {
         this.form = document.querySelector(form);
@@ -111,7 +111,7 @@ export default class NewProtocol {
             }
             if (!this.deposito || !this.typeDocument)
                 return;
-            const protocolRow = createStructProtocol((_o = this.protocol) === null || _o === void 0 ? void 0 : _o.value, (_p = this.dateCadastro) === null || _p === void 0 ? void 0 : _p.value, (_q = this.dateEnvio) === null || _q === void 0 ? void 0 : _q.value, (_r = this.interessado) === null || _r === void 0 ? void 0 : _r.value, (_s = this.cpf) === null || _s === void 0 ? void 0 : _s.value, (_t = this.dateVencimento) === null || _t === void 0 ? void 0 : _t.value, (_u = this.deposito) === null || _u === void 0 ? void 0 : _u.value);
+            const protocolRow = createStructProtocol((_o = this.protocol) === null || _o === void 0 ? void 0 : _o.value, (_p = this.dateCadastro) === null || _p === void 0 ? void 0 : _p.value, (_q = this.dateEnvio) === null || _q === void 0 ? void 0 : _q.value, (_r = this.interessado) === null || _r === void 0 ? void 0 : _r.value, (_s = this.cpf) === null || _s === void 0 ? void 0 : _s.value, (_t = this.dateVencimento) === null || _t === void 0 ? void 0 : _t.value, (_u = this.deposito) === null || _u === void 0 ? void 0 : _u.value, "Vigente");
             const protocolSaved = yield this.postProtocol();
             if (protocolSaved) {
                 const table = document.querySelector(`[data-protocol='${(_v = this.typeDocument) === null || _v === void 0 ? void 0 : _v.value}']`);

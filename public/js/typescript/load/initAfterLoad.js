@@ -1,10 +1,10 @@
-import addEventsWindow from "../events-window/addEventsWindow";
-import Search from "../inputs/Search";
-import ValidateCNPJ from "../inputs/ValidateCNPJ";
-import ValidateCPF from "../inputs/ValidateCPF";
-import MenuProtocol from "../modal/MenuProtocol";
-import NewProtocol from "../new-items/NewProtocol";
-import TabNav from "../TabNav";
+import addEventsWindow from "../events-window/addEventsWindow.js";
+import Search from "../inputs/Search.js";
+import ValidateCNPJ from "../inputs/ValidateCNPJ.js";
+import ValidateCPF from "../inputs/ValidateCPF.js";
+import MenuProtocol from "../modal/MenuProtocol.js";
+import NewProtocol from "../new-items/NewProtocol.js";
+import TabNav from "../TabNav.js";
 export default function initAfterLoad() {
     const searchProtocol = new Search('[data-search="table"]', '[data-search="input"]', "row-search", "show");
     searchProtocol.init();
