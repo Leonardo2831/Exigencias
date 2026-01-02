@@ -33,33 +33,27 @@ const modalProtocol = new ModalProtocol(
 );
 modalProtocol.init();
 
-const styleDeposit = new StyleDeposit(
-    '[data-protocol="deposit"]'
-);
+const styleDeposit = new StyleDeposit('[data-protocol="deposit"]');
 styleDeposit.init();
 
-const validateCpf = new ValidateCPF(
-    '[data-cpf="verify"]',
-    "invalid"
-);
+const validateCpf = new ValidateCPF('[data-cpf="verify"]', "invalid");
 validateCpf.init();
 
-const validateCnpj = new ValidateCNPJ(
-    '[data-cnpj="verify"]',
-    "invalid"
-);
+const validateCnpj = new ValidateCNPJ('[data-cnpj="verify"]', "invalid");
 validateCnpj.init();
 
 const newProtocol = new NewProtocol(
+    '[data-protocol="form"]',
     '[data-protocol="protocolo"]',
     '[data-protocol="typeDocument"]',
-    '[data-protocol="dataCadastro"]',
-    '[data-protocol="dataEnvio"]',
+    '[data-protocol="dateCadastro"]',
+    '[data-protocol="dateEnvio"]',
     '[data-protocol="interessado"]',
     '[data-protocol="cpf"]',
     '[data-protocol="dateVencimento"]',
-    '[data-protocol="deposito"]',
-    '[data-protocol="buttonAdd"]'
+    '[data-protocol="deposit"]',
+    '[data-protocol="buttonAdd"]',
+    'http://localhost:3000'
 );
 newProtocol.init();
 
@@ -70,6 +64,6 @@ const menuProtocol = new MenuProtocol(
     '[data-send="depositos"]',
     '[data-send="concluidos"]',
     '[data-send="delete"]',
-    "show",
+    "show"
 );
 addEventsWindow(menuProtocol);
