@@ -7,7 +7,7 @@
   "scripts": {
     "ts": "npx tsc --watch",
     "tailwind": "npx @tailwindcss/cli -i ./public/styles/input.css -o ./public/styles/output.css --watch",
-    "server": "npx json-server --watch public/database/saneadoras.json --port 3000"
+    "server": "npx json-server --watch public/database/exigencias.json --port 3000"
   },
   "devDependencies": {
     "tailwindcss": "^4.1.18",
