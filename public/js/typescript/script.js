@@ -19,7 +19,7 @@ const validateCpf = new ValidateCPF('[data-cpf="verify"]', "invalid");
 validateCpf.init();
 const validateCnpj = new ValidateCNPJ('[data-cnpj="verify"]', "invalid");
 validateCnpj.init();
-const newProtocol = new NewProtocol('[data-protocol="protocolo"]', '[data-protocol="typeDocument"]', '[data-protocol="dataCadastro"]', '[data-protocol="dataEnvio"]', '[data-protocol="interessado"]', '[data-protocol="cpf"]', '[data-protocol="dateVencimento"]', '[data-protocol="deposito"]', '[data-protocol="buttonAdd"]');
+const newProtocol = new NewProtocol('[data-protocol="form"]', '[data-protocol="protocolo"]', '[data-protocol="typeDocument"]', '[data-protocol="dateCadastro"]', '[data-protocol="dateEnvio"]', '[data-protocol="interessado"]', '[data-protocol="cpf"]', '[data-protocol="dateVencimento"]', '[data-protocol="deposit"]', '[data-protocol="buttonAdd"]', 'http://localhost:3000');
 newProtocol.init();
 const menuProtocol = new MenuProtocol('[data-menuProtocol="button"]', '[data-menuProtocol="modal"]', '[data-send="vencidos"]', '[data-send="depositos"]', '[data-send="concluidos"]', '[data-send="delete"]', "show");
 addEventsWindow(menuProtocol);
