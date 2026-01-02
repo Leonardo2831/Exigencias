@@ -172,11 +172,11 @@
     }
 
     .info-search {
-        @apply hidden opacity-0 invisible animate-fadeRight text-base text-gray-700 text-end mt-2;
+        @apply opacity-0 invisible text-base text-gray-700 text-end mt-2;
     }
 
     .info-search.show {
-        @apply block opacity-100 visible;
+        @apply opacity-100 visible animate-fadeRight;
     }
 
     .table-content {
