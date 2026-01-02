@@ -1,5 +1,5 @@
 import eventSelect from "../inputs/eventSelect.js";
-import createStructProtocol from "./createStructProtocol.js";
+import createStructProtocol from "../createStructProtocol.js";
 
 export default class NewProtocol {
     form: HTMLFormElement | null;
@@ -162,7 +162,8 @@ export default class NewProtocol {
             this.interessado?.value,
             this.cpf?.value,
             this.dateVencimento?.value,
-            this.deposito?.value
+            this.deposito?.value,
+            "Vigente"
         );
 
         const protocolSaved: boolean = await this.postProtocol();
