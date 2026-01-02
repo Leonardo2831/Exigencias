@@ -50,10 +50,6 @@ export default class NewProtocol {
         this.addProtocol = this.addProtocol.bind(this);
     }
 
-    cleanInputs() {
-        this.form?.reset();
-    }
-
     addClassInvalid() {
         const inputs = this.form?.querySelectorAll("input");
 
@@ -177,6 +173,8 @@ export default class NewProtocol {
             );
             table?.appendChild(protocolRow);
         }
+
+        this.form?.reset();
     }
 
     addEvents() {
