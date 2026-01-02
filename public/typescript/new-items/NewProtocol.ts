@@ -108,7 +108,7 @@ export default class NewProtocol {
             cpf: this.cpf?.value,
             dateVencimento: this.dateVencimento?.value,
             deposito: this.deposito?.value,
-            status: "Vigente", // Adding default status as seen in json
+            status: "Vigente",
         };
 
         const protocolSaved: boolean = await postProtocol(

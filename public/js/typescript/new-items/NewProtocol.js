@@ -60,7 +60,7 @@ export default class NewProtocol {
                 cpf: (_z = this.cpf) === null || _z === void 0 ? void 0 : _z.value,
                 dateVencimento: (_0 = this.dateVencimento) === null || _0 === void 0 ? void 0 : _0.value,
                 deposito: (_1 = this.deposito) === null || _1 === void 0 ? void 0 : _1.value,
-                status: "Vigente", // Adding default status as seen in json
+                status: "Vigente",
             };
             const protocolSaved = yield postProtocol(newItemToSave, this.urlPost, this.typeDocument.value, "Protocolo salvo com sucesso", "Erro ao salvar o protocolo");
             if (protocolSaved) {

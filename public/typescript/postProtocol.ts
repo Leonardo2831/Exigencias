@@ -19,6 +19,7 @@ export default async function postProtocol(
             throw new Error("Tipo de documento inválido ou não encontrado");
         }
 
+        if(newItem.deposito == "R$ 0,00" || newItem.deposito == "R$ 0,00") newItem.deposito = "";
         // 2. Append to correct array
         currentData[type].push(newItem);
 

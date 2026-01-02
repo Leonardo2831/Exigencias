@@ -7,6 +7,8 @@ export default class StyleDeposit {
     }
 
     formatValue(value: string | undefined): string {
+        if(value?.length == 6) return "";
+
         const valueFormat = value?.replace(/\D/g, "") || "";
         const resultFormat = (Number(valueFormat) / 100).toLocaleString(
             "pt-BR",

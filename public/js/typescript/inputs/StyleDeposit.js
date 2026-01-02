@@ -4,6 +4,8 @@ export default class StyleDeposit {
         this.styleValue = this.styleValue.bind(this);
     }
     formatValue(value) {
+        if ((value === null || value === void 0 ? void 0 : value.length) == 6)
+            return "";
         const valueFormat = (value === null || value === void 0 ? void 0 : value.replace(/\D/g, "")) || "";
         const resultFormat = (Number(valueFormat) / 100).toLocaleString("pt-BR", {
             style: "currency",
