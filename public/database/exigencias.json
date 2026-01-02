@@ -1,28 +1,9 @@
 {
   "exigencias": {
-    "public": [
-      {
-        "protocol": "238491",
-        "dateCadastro": "12/10/2023",
-        "dateEnvio": "14/10/2023",
-        "interessado": "Construtora Sol Nascente",
-        "cpf": "12.345.678/0001-90",
-        "dateVencimento": "20/11/2023",
-        "deposito": "R$ 5.400,00",
-        "status": "Vigente"
-      }
+    "public": [ 
+
     ],
     "doc": [
-      {
-        "protocol": "238491",
-        "dateCadastro": "12/10/2023",
-        "dateEnvio": "14/10/2023",
-        "interessado": "Construtora Sol Nascente",
-        "cpf": "12.345.678/0001-90",
-        "dateVencimento": "20/11/2023",
-        "deposito": "R$ 5.400,00",
-        "status": "Vigente"
-      },
       {
         "protocol": "102345",
         "dateCadastro": "2026-01-06",
@@ -35,52 +16,13 @@
       }
     ],
     "title": [
-      {
-        "protocol": "238491",
-        "dateCadastro": "12/10/2023",
-        "dateEnvio": "14/10/2023",
-        "interessado": "Construtora Sol Nascente",
-        "cpf": "12.345.678/0001-90",
-        "dateVencimento": "20/11/2023",
-        "deposito": "R$ 5.400,00",
-        "status": "Vigente"
-      }
+
     ],
     "depositDefeated": [
-      {
-        "protocol": "238491",
-        "dateCadastro": "12/10/2023",
-        "dateEnvio": "14/10/2023",
-        "interessado": "Construtora Sol Nascente",
-        "cpf": "12.345.678/0001-90",
-        "dateVencimento": "20/11/2023",
-        "deposito": "R$ 5.400,00",
-        "status": "Vigente"
-      }
+
     ],
     "defeated": [
-      {
-        "protocol": "238491",
-        "dateCadastro": "12/10/2023",
-        "dateEnvio": "14/10/2023",
-        "interessado": "Construtora Sol Nascente",
-        "cpf": "12.345.678/0001-90",
-        "dateVencimento": "20/11/2023",
-        "deposito": "R$ 5.400,00",
-        "status": "Vigente"
-      }
-    ],
-    "completed": [
-      {
-        "protocol": "238491",
-        "dateCadastro": "12/10/2023",
-        "dateEnvio": "14/10/2023",
-        "interessado": "Construtora Sol Nascente",
-        "cpf": "12.345.678/0001-90",
-        "dateVencimento": "20/11/2023",
-        "deposito": "R$ 5.400,00",
-        "status": "Vigente"
-      }
+
     ]
   }
 }
