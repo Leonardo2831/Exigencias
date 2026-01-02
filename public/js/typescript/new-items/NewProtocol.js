@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import eventSelect from "../inputs/eventSelect.js";
 import createStructProtocol from "../createStructProtocol.js";
+import postProtocol from "../postProtocol.js";
 export default class NewProtocol {
     constructor(form, protocol, typeDocument, dateCadastro, dateEnvio, interessado, cpf, dateVencimento, deposito, buttonAdd, urlPost) {
         this.form = document.querySelector(form);
@@ -34,70 +35,9 @@ export default class NewProtocol {
             }
         });
     }
-    postProtocol() {
-        return __awaiter(this, void 0, void 0, function* () {
-            var _a, _b, _c, _d, _e, _f, _g, _h;
-            const message = document.querySelector("[data-protocol='message']");
-            try {
-                // 1. GET current data
-                const getResponse = yield fetch(`${this.urlPost}/exigencias`);
-                if (!getResponse.ok)
-                    throw new Error("Erro ao buscar dados atuais");
-                const currentData = yield getResponse.json();
-                const type = (_a = this.typeDocument) === null || _a === void 0 ? void 0 : _a.value;
-                if (!type || !currentData[type]) {
-                    throw new Error("Tipo de documento inválido ou não encontrado");
-                }
-                // 2. Prepare new item
-                const newItem = {
-                    protocol: (_b = this.protocol) === null || _b === void 0 ? void 0 : _b.value,
-                    dateCadastro: (_c = this.dateCadastro) === null || _c === void 0 ? void 0 : _c.value,
-                    dateEnvio: (_d = this.dateEnvio) === null || _d === void 0 ? void 0 : _d.value,
-                    interessado: (_e = this.interessado) === null || _e === void 0 ? void 0 : _e.value,
-                    cpf: (_f = this.cpf) === null || _f === void 0 ? void 0 : _f.value,
-                    dateVencimento: (_g = this.dateVencimento) === null || _g === void 0 ? void 0 : _g.value,
-                    deposito: (_h = this.deposito) === null || _h === void 0 ? void 0 : _h.value,
-                    status: "Vigente", // Adding default status as seen in json
-                };
-                // 3. Append to correct array
-                currentData[type].push(newItem);
-                // 4. PUT updated data back
-                const response = yield fetch(`${this.urlPost}/exigencias`, {
-                    method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(currentData),
-                });
-                if (!response.ok)
-                    throw new Error("Erro ao salvar o protocolo");
-                if (!message)
-                    return true;
-                message.textContent = "Protocolo salvo com sucesso";
-                message.classList.add("show", "success");
-                setTimeout(() => {
-                    message.textContent = "";
-                    message.classList.remove("show", "success");
-                }, 3000);
-                return true;
-            }
-            catch (error) {
-                console.log(error);
-                if (!message)
-                    return false;
-                message.textContent = "Erro ao salvar o protocolo";
-                message.classList.add("show", "error");
-                setTimeout(() => {
-                    message.textContent = "";
-                    message.classList.remove("show", "error");
-                }, 3000);
-                return false;
-            }
-        });
-    }
     addProtocol(event) {
         return __awaiter(this, void 0, void 0, function* () {
-            var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w;
+            var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3;
             event.preventDefault();
             if (!((_a = this.protocol) === null || _a === void 0 ? void 0 : _a.value) ||
                 !((_b = this.dateCadastro) === null || _b === void 0 ? void 0 : _b.value) ||
@@ -112,12 +52,22 @@ export default class NewProtocol {
             if (!this.deposito || !this.typeDocument)
                 return;
             const protocolRow = createStructProtocol((_o = this.protocol) === null || _o === void 0 ? void 0 : _o.value, (_p = this.dateCadastro) === null || _p === void 0 ? void 0 : _p.value, (_q = this.dateEnvio) === null || _q === void 0 ? void 0 : _q.value, (_r = this.interessado) === null || _r === void 0 ? void 0 : _r.value, (_s = this.cpf) === null || _s === void 0 ? void 0 : _s.value, (_t = this.dateVencimento) === null || _t === void 0 ? void 0 : _t.value, (_u = this.deposito) === null || _u === void 0 ? void 0 : _u.value, "Vigente");
-            const protocolSaved = yield this.postProtocol();
+            const newItemToSave = {
+                protocol: (_v = this.protocol) === null || _v === void 0 ? void 0 : _v.value,
+                dateCadastro: (_w = this.dateCadastro) === null || _w === void 0 ? void 0 : _w.value,
+                dateEnvio: (_x = this.dateEnvio) === null || _x === void 0 ? void 0 : _x.value,
+                interessado: (_y = this.interessado) === null || _y === void 0 ? void 0 : _y.value,
+                cpf: (_z = this.cpf) === null || _z === void 0 ? void 0 : _z.value,
+                dateVencimento: (_0 = this.dateVencimento) === null || _0 === void 0 ? void 0 : _0.value,
+                deposito: (_1 = this.deposito) === null || _1 === void 0 ? void 0 : _1.value,
+                status: "Vigente", // Adding default status as seen in json
+            };
+            const protocolSaved = yield postProtocol(newItemToSave, this.urlPost, this.typeDocument.value, "Protocolo salvo com sucesso", "Erro ao salvar o protocolo");
             if (protocolSaved) {
-                const table = document.querySelector(`[data-protocol='${(_v = this.typeDocument) === null || _v === void 0 ? void 0 : _v.value}']`);
+                const table = document.querySelector(`[data-protocol='${(_2 = this.typeDocument) === null || _2 === void 0 ? void 0 : _2.value}']`);
                 table === null || table === void 0 ? void 0 : table.appendChild(protocolRow);
             }
-            (_w = this.form) === null || _w === void 0 ? void 0 : _w.reset();
+            (_3 = this.form) === null || _3 === void 0 ? void 0 : _3.reset();
         });
     }
     addEvents() {

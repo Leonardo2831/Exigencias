@@ -1,5 +1,6 @@
 import eventSelect from "../inputs/eventSelect.js";
 import createStructProtocol from "../createStructProtocol.js";
+import postProtocol from "../postProtocol.js";
 
 export default class NewProtocol {
     form: HTMLFormElement | null;
@@ -63,73 +64,6 @@ export default class NewProtocol {
         });
     }
 
-    async postProtocol(): Promise<boolean> {
-        const message = document.querySelector("[data-protocol='message']");
-
-        try {
-            // 1. GET current data
-            const getResponse = await fetch(`${this.urlPost}/exigencias`);
-            if (!getResponse.ok) throw new Error("Erro ao buscar dados atuais");
-
-            const currentData = await getResponse.json();
-            const type = this.typeDocument?.value;
-
-            if (!type || !currentData[type]) {
-                throw new Error("Tipo de documento inválido ou não encontrado");
-            }
-
-            // 2. Prepare new item
-            const newItem = {
-                protocol: this.protocol?.value,
-                dateCadastro: this.dateCadastro?.value,
-                dateEnvio: this.dateEnvio?.value,
-                interessado: this.interessado?.value,
-                cpf: this.cpf?.value,
-                dateVencimento: this.dateVencimento?.value,
-                deposito: this.deposito?.value,
-                status: "Vigente", // Adding default status as seen in json
-            };
-
-            // 3. Append to correct array
-            currentData[type].push(newItem);
-
-            // 4. PUT updated data back
-            const response = await fetch(`${this.urlPost}/exigencias`, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(currentData),
-            });
-
-            if (!response.ok) throw new Error("Erro ao salvar o protocolo");
-
-            if (!message) return true;
-            message.textContent = "Protocolo salvo com sucesso";
-            message.classList.add("show", "success");
-
-            setTimeout(() => {
-                message.textContent = "";
-                message.classList.remove("show", "success");
-            }, 3000);
-
-            return true;
-        } catch (error) {
-            console.log(error);
-
-            if (!message) return false;
-            message.textContent = "Erro ao salvar o protocolo";
-            message.classList.add("show", "error");
-
-            setTimeout(() => {
-                message.textContent = "";
-                message.classList.remove("show", "error");
-            }, 3000);
-
-            return false;
-        }
-    }
-
     async addProtocol(event: Event) {
         event.preventDefault();
         if (
@@ -166,7 +100,24 @@ export default class NewProtocol {
             "Vigente"
         );
 
-        const protocolSaved: boolean = await this.postProtocol();
+        const newItemToSave = {
+            protocol: this.protocol?.value,
+            dateCadastro: this.dateCadastro?.value,
+            dateEnvio: this.dateEnvio?.value,
+            interessado: this.interessado?.value,
+            cpf: this.cpf?.value,
+            dateVencimento: this.dateVencimento?.value,
+            deposito: this.deposito?.value,
+            status: "Vigente", // Adding default status as seen in json
+        };
+
+        const protocolSaved: boolean = await postProtocol(
+            newItemToSave,
+            this.urlPost,
+            this.typeDocument.value,
+            "Protocolo salvo com sucesso",
+            "Erro ao salvar o protocolo"
+        );
 
         if (protocolSaved) {
             const table = document.querySelector(
