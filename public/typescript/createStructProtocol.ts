@@ -11,12 +11,15 @@ export default function createStructProtocol(
     cpf: string,
     dateVencimento: string,
     deposito: string,
-    state: string,
+    state: string
 ): HTMLElement {
     const row = document.createElement("tr");
 
     row.setAttribute("data-id", protocol);
-    row.classList.add("table-row", deposito ? "row-deposit" : "");
+    row.classList.add("table-row");
+
+    const hasDeposit = deposito && deposito !== "R$ 0,00";
+    if (hasDeposit) row.classList.add("row-deposit");
 
     row.innerHTML = `
         <td class="table-cell">${protocol}</td>
@@ -25,8 +28,8 @@ export default function createStructProtocol(
         <td class="table-cell">${interessado}</td>
         <td class="table-cell">${cpf}</td>
         <td class="table-cell">${formatDate(dateVencimento)}</td>
-        <td class="table-cell ${!deposito ? "text-green-moss" : ""}">${
-        deposito ? deposito : "-"
+        <td class="table-cell ${!hasDeposit ? "text-green-moss" : ""}">${
+        hasDeposit ? deposito : "-"
     }</td>
         <td class="table-cell">${state}</td>
         <td data-menuProtocol="button" class="table-cell text-center">
