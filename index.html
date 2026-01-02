@@ -109,30 +109,8 @@
                             <th class="table-header-cell"></th>
                         </tr>
                     </thead>
-                    <tbody data-search="table" data-protocol="public">
-                        <tr data-id="1" class="table-row row-defeated">
-                            <td class="table-cell">238102</td>
-                            <td class="table-cell">01/09/2023</td>
-                            <td class="table-cell">05/09/2023</td>
-                            <td class="table-cell">João da Silva</td>
-                            <td class="table-cell">123.456.789-00</td>
-                            <td class="table-cell date-vencida">05/10/2023</td>
-                            <td class="table-cell text-green-moss">-</td>
-                            <td class="table-cell">
-                                <span class="status-badge status-vencido"
-                                    >Vencido</span
-                                >
-                            </td>
-                            <td data-menuProtocol="button" class="table-cell text-center">
-                                <div
-                                    class="flex items-center gap-2 cursor-pointer *:size-2 *:rounded-full *:bg-green-moss"
-                                >
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                </div>
-                            </td>
-                        </tr>
+                    <tbody data-search="table" data-load="public" data-protocol="public">
+                        
                     </tbody>
                 </table>
                 <table data-tableNav="doc" class="table-content">
@@ -151,7 +129,7 @@
                             <th class="table-header-cell"></th>
                         </tr>
                     </thead>
-                    <tbody data-search="table" data-protocol="doc">
+                    <tbody data-search="table" data-load="doc" data-protocol="doc">
                         
                     </tbody>
                 </table>
@@ -171,7 +149,7 @@
                             <th class="table-header-cell"></th>
                         </tr>
                     </thead>
-                    <tbody data-search="table" data-protocol="title">
+                    <tbody data-search="table" data-load="title" data-protocol="title">
                         
                     </tbody>
                 </table>
@@ -191,7 +169,7 @@
                             <th class="table-header-cell"></th>
                         </tr>
                     </thead>
-                    <tbody data-search="table">
+                    <tbody data-search="table" data-load="depositDefeated">
                         
                     </tbody>
                 </table>
@@ -211,7 +189,7 @@
                             <th class="table-header-cell"></th>
                         </tr>
                     </thead>
-                    <tbody data-search="table">
+                    <tbody data-search="table" data-load="defeated">
                         
                     </tbody>
                 </table>
@@ -231,10 +209,14 @@
                             <th class="table-header-cell"></th>
                         </tr>
                     </thead>
-                    <tbody data-search="table">
+                    <tbody data-search="table" data-load="completed">
                         
                     </tbody>
                 </table>
+            </div>
+
+            <div class="flex justify-center items-center h-[50vh] animate-fadeLeft" data-load="icon">
+                <div class="border-6 border-green-500 rounded-full size-20 animate-spin border-t-transparent"></div>
             </div>
         </main>
 
@@ -410,7 +392,7 @@
             <b class="font-semibold">Autor:</b> Leonardo Reis Ferraz
         </a>
 
-        <aside data-protocol="message" class="message"></aside>
+        <aside data-protocol="message" data-load="alert" class="message"></aside>
 
         <script type="module" src="./public/js/typescript/script.js"></script>
     </body>
