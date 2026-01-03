@@ -1,29 +1,7 @@
 {
   "exigencias": {
-    "public": [
-      {
-        "protocol": "104111",
-        "dateCadastro": "2026-01-01",
-        "dateEnvio": "2026-01-02",
-        "interessado": "Leozin",
-        "cpf": "144.041.776-82",
-        "dateVencimento": "2026-01-22",
-        "deposito": "",
-        "status": "Vigente"
-      }
-    ],
-    "doc": [
-      {
-        "protocol": "102345",
-        "dateCadastro": "2026-01-06",
-        "dateEnvio": "2026-01-02",
-        "interessado": "Claudio",
-        "cpf": "144.041.776-82",
-        "dateVencimento": "2026-01-23",
-        "deposito": "R$ 1.500,00",
-        "status": "Vigente"
-      }
-    ],
+    "public": [],
+    "doc": [],
     "title": [],
     "depositDefeated": [],
     "defeated": []
