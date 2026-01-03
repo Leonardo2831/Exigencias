@@ -16,6 +16,6 @@ export default function initAfterLoad() {
     validateCnpj.init();
     const newProtocol = new NewProtocol('[data-protocol="form"]', '[data-protocol="protocolo"]', '[data-protocol="typeDocument"]', '[data-protocol="dateCadastro"]', '[data-protocol="dateEnvio"]', '[data-protocol="interessado"]', '[data-protocol="cpf"]', '[data-protocol="dateVencimento"]', '[data-protocol="deposit"]', '[data-protocol="buttonAdd"]', "http://localhost:3000");
     newProtocol.init();
-    const menuProtocol = new MenuProtocol('[data-menuProtocol="button"]', '[data-menuProtocol="modal"]', '[data-send="vencidos"]', '[data-send="depositos"]', '[data-send="concluidos"]', '[data-send="delete"]', "show");
+    const menuProtocol = new MenuProtocol("http://localhost:3000", '[data-menuProtocol="row"]', '[data-menuProtocol="button"]', '[data-menuProtocol="modal"]', '[data-send="vencidos"]', '[data-send="depositos"]', '[data-send="concluidos"]', '[data-send="delete"]', "show");
     addEventsWindow(menuProtocol);
 }
