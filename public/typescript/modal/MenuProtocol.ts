@@ -1,35 +1,48 @@
 import ClickOutside from "../ClickOutside.js";
+import type Exigencias from "../Exigencias.js";
+import type Protocol from "../Protocol.js";
 
 export default class MenuProtocol {
-    private datasetProtocol: string;
+    private url: string;
+    datasetProtocol: string;
+    datasetButton: string;
 
-    private modal: HTMLElement | null;
+    modal: HTMLElement | null;
 
-    private sendDefeatedDeposit: HTMLElement | null;
-    private sendDefeated: HTMLElement | null;
-    private sendCompleted: HTMLElement | null;
-    private deleteButton: HTMLElement | null;
+    sendDefeatedDeposit: HTMLElement | null;
+    sendDefeated: HTMLElement | null;
+    sendCompleted: HTMLElement | null;
+    deleteButton: HTMLElement | null;
 
-    private classActiveModal: string;
+    rowTarget: HTMLTableRowElement | null;
 
-    private clickOutside: ClickOutside | null;
+    classActiveModal: string;
+
+    clickOutside: ClickOutside | null;
 
     constructor(
+        url: string,
         datasetProtocol: string,
+        datasetButton: string,
         modal: string,
         sendDefeated: string,
         sendDefeatedDeposit: string,
-        deleteButton: string,
         sendCompleted: string,
+        deleteButton: string,
         classActiveModal: string
     ) {
+        this.url = url;
+
         this.datasetProtocol = datasetProtocol;
+        this.datasetButton = datasetButton;
         this.modal = document.querySelector(modal);
 
-        this.sendDefeatedDeposit = document.querySelector(sendDefeatedDeposit);
         this.sendDefeated = document.querySelector(sendDefeated);
-        this.sendCompleted = document.querySelector(sendCompleted);
+        this.sendDefeatedDeposit = document.querySelector(sendDefeatedDeposit);
         this.deleteButton = document.querySelector(deleteButton);
+        this.sendCompleted = document.querySelector(sendCompleted);
+
+        this.rowTarget = null;
 
         this.classActiveModal = classActiveModal;
 
@@ -55,14 +68,89 @@ export default class MenuProtocol {
         this.modal.style.top = `${position.y + 20}px`;
     }
 
-    moveToCompleted() {}
+    moveToCompleted(event: MouseEvent) {}
 
-    moveToDefeatedDeposit() {}
+    moveToDefeatedDeposit(event: MouseEvent) {}
 
-    moveToDefeated() {}
+    moveToDefeated(event: MouseEvent) {}
 
-    deleteProtocol(event: MouseEvent) {
-        
+    async deleteProtocol(event: MouseEvent): Promise<void> {
+        event.stopPropagation();
+
+        if (!this.rowTarget) return;
+
+        const idProtocol = this.rowTarget.getAttribute("data-id");
+        if (!idProtocol) return;
+
+        const message: HTMLElement | null = document.querySelector(
+            "[data-delete='alert']"
+        );
+        if (!message) return;
+
+        try {
+            const getResponse: Response = await fetch(`${this.url}/exigencias`);
+            if (!getResponse.ok)
+                throw new Error("Erro ao buscar dados do servidor.");
+
+            const data: Exigencias = await getResponse.json();
+            const keys = Object.keys(data) as Array<keyof Exigencias>;
+            let found = false;
+
+            keys.forEach((key: keyof Exigencias) => {
+                const list = data[key];
+                const index = list.findIndex(
+                    (p: Protocol) => p.protocol === idProtocol
+                );
+
+                if (index !== -1) {
+                    list.splice(index, 1);
+                    found = true;
+                }
+            });
+
+            if (found) {
+                const updateResponse: Response = await fetch(
+                    `${this.url}/exigencias`,
+                    {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(data),
+                    }
+                );
+
+                if (!updateResponse.ok)
+                    throw new Error("Erro ao atualizar dados no servidor.");
+
+                this.rowTarget.remove();
+
+                message.textContent = "Protocolo deletado com sucesso.";
+                message.classList.add("success");
+
+                setTimeout(() => {
+                    message.textContent = "";
+                    message.classList.remove("success");
+                }, 3000);
+            } else {
+                throw new Error("Protocolo não encontrado.");
+            }
+        } catch (error) {
+            message.textContent = "Protocolo não encontrado.";
+            message.classList.add("error");
+
+            setTimeout(() => {
+                message.textContent = "";
+                message.classList.remove("error");
+            }, 3000);
+
+            console.error("Erro em deletar o protocolo:", error);
+        }
+
+        this.modal?.classList.remove(this.classActiveModal);
+        this.clickOutside?.removeEventClickOutside();
+        this.clickOutside = null;
+        this.rowTarget = null;
     }
 
     removeEvents() {}
@@ -84,10 +172,14 @@ export default class MenuProtocol {
     openModal(event: MouseEvent): void {
         event.stopPropagation();
 
-        const protocolTarget: HTMLElement | null = (
+        this.rowTarget = (event.target as HTMLElement).closest(
+            this.datasetProtocol
+        );
+        const buttonTarget: HTMLElement | null = (
             event.target as HTMLElement
-        )?.closest(this.datasetProtocol);
-        if (!protocolTarget) return;
+        )?.closest(this.datasetButton);
+
+        if (!buttonTarget) return;
 
         if (!this.modal) return;
 
