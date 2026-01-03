@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import eventSelect from "../inputs/eventSelect.js";
 import createStructProtocol from "../createStructProtocol.js";
 import postProtocol from "../postProtocol.js";
+import verifyDefeated from "../verifyDefeated.js";
 export default class NewProtocol {
     constructor(form, protocol, typeDocument, dateCadastro, dateEnvio, interessado, cpf, dateVencimento, deposito, buttonAdd, urlPost) {
         this.form = document.querySelector(form);
@@ -68,6 +69,7 @@ export default class NewProtocol {
                 table === null || table === void 0 ? void 0 : table.appendChild(protocolRow);
             }
             (_3 = this.form) === null || _3 === void 0 ? void 0 : _3.reset();
+            verifyDefeated("[data-defeated]");
         });
     }
     addEvents() {

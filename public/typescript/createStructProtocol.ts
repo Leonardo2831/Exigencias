@@ -17,6 +17,7 @@ export default function createStructProtocol(
 
     row.setAttribute("data-id", protocol);
     row.setAttribute("data-menuProtocol", "row");
+    row.setAttribute("data-defeated", dateVencimento);
     row.classList.add("table-row");
 
     const hasDeposit = deposito && deposito !== "R$ 0,00";

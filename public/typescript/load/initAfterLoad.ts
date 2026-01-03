@@ -5,6 +5,7 @@ import ValidateCPF from "../inputs/ValidateCPF.js";
 import MenuProtocol from "../modal/MenuProtocol.js";
 import NewProtocol from "../new-items/NewProtocol.js";
 import TabNav from "../TabNav.js";
+import verifyDefeated from "../verifyDefeated.js";
 
 export default function initAfterLoad() {
     const searchProtocol = new Search(
@@ -56,4 +57,6 @@ export default function initAfterLoad() {
         "show"
     );
     addEventsWindow(menuProtocol);
+
+    verifyDefeated("[data-defeated]");
 }

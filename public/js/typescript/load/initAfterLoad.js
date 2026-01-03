@@ -5,6 +5,7 @@ import ValidateCPF from "../inputs/ValidateCPF.js";
 import MenuProtocol from "../modal/MenuProtocol.js";
 import NewProtocol from "../new-items/NewProtocol.js";
 import TabNav from "../TabNav.js";
+import verifyDefeated from "../verifyDefeated.js";
 export default function initAfterLoad() {
     const searchProtocol = new Search('[data-search="table"]', '[data-search="input"]', "row-search", "show");
     searchProtocol.init();
@@ -18,4 +19,5 @@ export default function initAfterLoad() {
     newProtocol.init();
     const menuProtocol = new MenuProtocol("http://localhost:3000", '[data-menuProtocol="row"]', '[data-menuProtocol="button"]', '[data-menuProtocol="modal"]', '[data-send="vencidos"]', '[data-send="depositos"]', '[data-send="concluidos"]', '[data-send="delete"]', "show");
     addEventsWindow(menuProtocol);
+    verifyDefeated("[data-defeated]");
 }

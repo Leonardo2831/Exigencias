@@ -1,6 +1,7 @@
 import eventSelect from "../inputs/eventSelect.js";
 import createStructProtocol from "../createStructProtocol.js";
 import postProtocol from "../postProtocol.js";
+import verifyDefeated from "../verifyDefeated.js";
 
 export default class NewProtocol {
     form: HTMLFormElement | null;
@@ -127,6 +128,7 @@ export default class NewProtocol {
         }
 
         this.form?.reset();
+        verifyDefeated("[data-defeated]");
     }
 
     addEvents() {
