@@ -5,6 +5,7 @@ function formatDate(date) {
 export default function createStructProtocol(protocol, dateCadastro, dateEnvio, interessado, cpf, dateVencimento, deposito, state) {
     const row = document.createElement("tr");
     row.setAttribute("data-id", protocol);
+    row.setAttribute("data-menuProtocol", "row");
     row.classList.add("table-row");
     const hasDeposit = deposito && deposito !== "R$ 0,00";
     if (hasDeposit)
