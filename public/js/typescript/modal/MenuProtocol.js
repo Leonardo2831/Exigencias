@@ -11,7 +11,7 @@ import ClickOutside from "../ClickOutside.js";
 import changeType from "../protocolsData/changeType.js";
 import deleteProtocol from "../protocolsData/deleteProtocol.js";
 export default class MenuProtocol {
-    constructor(url, datasetProtocol, datasetButton, modal, sendDefeated, sendDefeatedDeposit, sendCompleted, deleteButton, classActiveModal) {
+    constructor(url, datasetProtocol, datasetButton, modal, sendDefeated, sendDefeatedDeposit, sendCompleted, sendCopy, deleteButton, classActiveModal) {
         this.url = url;
         this.datasetProtocol = datasetProtocol;
         this.datasetButton = datasetButton;
@@ -20,12 +20,14 @@ export default class MenuProtocol {
         this.sendDefeatedDeposit = document.querySelector(sendDefeatedDeposit);
         this.deleteButton = document.querySelector(deleteButton);
         this.sendCompleted = document.querySelector(sendCompleted);
+        this.sendCopy = document.querySelector(sendCopy);
         this.rowTarget = null;
         this.classActiveModal = classActiveModal;
         this.clickOutside = null;
         this.openModal = this.openModal.bind(this);
         this.moveToChoicedOption = this.moveToChoicedOption.bind(this);
         this.deleteProtocolEvent = this.deleteProtocolEvent.bind(this);
+        this.copyProtocol = this.copyProtocol.bind(this);
     }
     styleModal(event) {
         if (!this.modal)
@@ -43,6 +45,21 @@ export default class MenuProtocol {
         (_b = this.clickOutside) === null || _b === void 0 ? void 0 : _b.removeEventClickOutside();
         this.clickOutside = null;
         this.rowTarget = null;
+    }
+    copyProtocol(event) {
+        return __awaiter(this, void 0, void 0, function* () {
+            event.stopPropagation();
+            if (!this.rowTarget || !this.url)
+                return;
+            const valuesClipboard = [];
+            Array.from(this.rowTarget.children).forEach((child) => {
+                var _a;
+                valuesClipboard.push(((_a = child.textContent) === null || _a === void 0 ? void 0 : _a.trim()) || "");
+            });
+            // \t = tab
+            yield navigator.clipboard.writeText(valuesClipboard.join("\t"));
+            this.removeEvents();
+        });
     }
     moveToChoicedOption(event) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -84,6 +101,8 @@ export default class MenuProtocol {
             this.sendDefeated.addEventListener("click", this.moveToChoicedOption);
         if (this.deleteButton)
             this.deleteButton.addEventListener("click", this.deleteProtocolEvent);
+        if (this.sendCopy)
+            this.sendCopy.addEventListener("click", this.copyProtocol);
     }
     openModal(event) {
         var _a;

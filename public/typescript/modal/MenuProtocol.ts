@@ -12,6 +12,7 @@ export default class MenuProtocol {
     sendDefeatedDeposit: HTMLElement | null;
     sendDefeated: HTMLElement | null;
     sendCompleted: HTMLElement | null;
+    sendCopy: HTMLElement | null;
     deleteButton: HTMLElement | null;
 
     rowTarget: HTMLTableRowElement | null;
@@ -28,6 +29,7 @@ export default class MenuProtocol {
         sendDefeated: string,
         sendDefeatedDeposit: string,
         sendCompleted: string,
+        sendCopy: string,
         deleteButton: string,
         classActiveModal: string
     ) {
@@ -41,6 +43,7 @@ export default class MenuProtocol {
         this.sendDefeatedDeposit = document.querySelector(sendDefeatedDeposit);
         this.deleteButton = document.querySelector(deleteButton);
         this.sendCompleted = document.querySelector(sendCompleted);
+        this.sendCopy = document.querySelector(sendCopy);
 
         this.rowTarget = null;
 
@@ -52,6 +55,7 @@ export default class MenuProtocol {
 
         this.moveToChoicedOption = this.moveToChoicedOption.bind(this);
         this.deleteProtocolEvent = this.deleteProtocolEvent.bind(this);
+        this.copyProtocol = this.copyProtocol.bind(this);
     }
 
     styleModal(event: MouseEvent): void {
@@ -71,6 +75,22 @@ export default class MenuProtocol {
         this.clickOutside?.removeEventClickOutside();
         this.clickOutside = null;
         this.rowTarget = null;
+    }
+
+    async copyProtocol(event: MouseEvent) {
+        event.stopPropagation();
+
+        if (!this.rowTarget || !this.url) return;
+
+        const valuesClipboard: string[] = [];
+
+        Array.from(this.rowTarget.children).forEach((child: Element) => {
+            valuesClipboard.push(child.textContent?.trim() || "");
+        });
+
+        // \t = tab
+        await navigator.clipboard.writeText(valuesClipboard.join("\t"));
+        this.removeEvents();
     }
 
     async moveToChoicedOption(event: MouseEvent) {
@@ -142,6 +162,8 @@ export default class MenuProtocol {
                 "click",
                 this.deleteProtocolEvent
             );
+        if (this.sendCopy)
+            this.sendCopy.addEventListener("click", this.copyProtocol);
     }
 
     openModal(event: MouseEvent): void {
