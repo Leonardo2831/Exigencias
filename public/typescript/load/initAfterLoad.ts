@@ -53,6 +53,7 @@ export default function initAfterLoad() {
         '[data-send="defeated"]',
         '[data-send="depositDefeated"]',
         '[data-send="completed"]',
+        '[data-send="copy"]',
         '[data-send="delete"]',
         "show"
     );
