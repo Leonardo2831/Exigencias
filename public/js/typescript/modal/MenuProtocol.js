@@ -8,6 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import ClickOutside from "../ClickOutside.js";
+import deleteProtocol from "../protocolsData/deleteProtocol.js";
 export default class MenuProtocol {
     constructor(url, datasetProtocol, datasetButton, modal, sendDefeated, sendDefeatedDeposit, sendCompleted, deleteButton, classActiveModal) {
         this.url = url;
@@ -22,10 +23,10 @@ export default class MenuProtocol {
         this.classActiveModal = classActiveModal;
         this.clickOutside = null;
         this.openModal = this.openModal.bind(this);
-        this.moveToCompleted = this.moveToCompleted.bind(this);
-        this.moveToDefeatedDeposit = this.moveToDefeatedDeposit.bind(this);
-        this.moveToDefeated = this.moveToDefeated.bind(this);
-        this.deleteProtocol = this.deleteProtocol.bind(this);
+        this.moveToCompletedEvent = this.moveToCompletedEvent.bind(this);
+        this.moveToDefeatedDepositEvent = this.moveToDefeatedDepositEvent.bind(this);
+        this.moveToDefeatedEvent = this.moveToDefeatedEvent.bind(this);
+        this.deleteProtocolEvent = this.deleteProtocolEvent.bind(this);
     }
     styleModal(event) {
         if (!this.modal)
@@ -37,83 +38,31 @@ export default class MenuProtocol {
         this.modal.style.left = `${position.x - 220}px`;
         this.modal.style.top = `${position.y + 20}px`;
     }
-    moveToCompleted(event) { }
-    moveToDefeatedDeposit(event) { }
-    moveToDefeated(event) { }
-    deleteProtocol(event) {
+    moveToCompletedEvent(event) { }
+    moveToDefeatedDepositEvent(event) { }
+    moveToDefeatedEvent(event) { }
+    deleteProtocolEvent(event) {
         return __awaiter(this, void 0, void 0, function* () {
             var _a, _b;
             event.stopPropagation();
-            if (!this.rowTarget)
+            if (!this.rowTarget || !this.url)
                 return;
-            const idProtocol = this.rowTarget.getAttribute("data-id");
-            if (!idProtocol)
-                return;
-            const message = document.querySelector("[data-delete='alert']");
-            if (!message)
-                return;
-            try {
-                const getResponse = yield fetch(`${this.url}/exigencias`);
-                if (!getResponse.ok)
-                    throw new Error("Erro ao buscar dados do servidor.");
-                const data = yield getResponse.json();
-                const keys = Object.keys(data);
-                let found = false;
-                keys.forEach((key) => {
-                    const list = data[key];
-                    const index = list.findIndex((p) => p.protocol === idProtocol);
-                    if (index !== -1) {
-                        list.splice(index, 1);
-                        found = true;
-                    }
-                });
-                if (found) {
-                    const updateResponse = yield fetch(`${this.url}/exigencias`, {
-                        method: "PUT",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify(data),
-                    });
-                    if (!updateResponse.ok)
-                        throw new Error("Erro ao atualizar dados no servidor.");
-                    this.rowTarget.remove();
-                    message.textContent = "Protocolo deletado com sucesso.";
-                    message.classList.add("success");
-                    setTimeout(() => {
-                        message.textContent = "";
-                        message.classList.remove("success");
-                    }, 3000);
-                }
-                else {
-                    throw new Error("Protocolo não encontrado.");
-                }
-            }
-            catch (error) {
-                message.textContent = "Protocolo não encontrado.";
-                message.classList.add("error");
-                setTimeout(() => {
-                    message.textContent = "";
-                    message.classList.remove("error");
-                }, 3000);
-                console.error("Erro em deletar o protocolo:", error);
-            }
+            deleteProtocol(this.rowTarget, this.url);
             (_a = this.modal) === null || _a === void 0 ? void 0 : _a.classList.remove(this.classActiveModal);
             (_b = this.clickOutside) === null || _b === void 0 ? void 0 : _b.removeEventClickOutside();
             this.clickOutside = null;
             this.rowTarget = null;
         });
     }
-    removeEvents() { }
     addEvents() {
         if (this.sendCompleted)
-            this.sendCompleted.addEventListener("click", this.moveToCompleted);
+            this.sendCompleted.addEventListener("click", this.moveToCompletedEvent);
         if (this.sendDefeatedDeposit)
-            this.sendDefeatedDeposit.addEventListener("click", this.moveToDefeatedDeposit);
+            this.sendDefeatedDeposit.addEventListener("click", this.moveToDefeatedDepositEvent);
         if (this.sendDefeated)
-            this.sendDefeated.addEventListener("click", this.moveToDefeated);
+            this.sendDefeated.addEventListener("click", this.moveToDefeatedEvent);
         if (this.deleteButton)
-            this.deleteButton.addEventListener("click", this.deleteProtocol);
+            this.deleteButton.addEventListener("click", this.deleteProtocolEvent);
     }
     openModal(event) {
         var _a;

@@ -1,6 +1,7 @@
 import ClickOutside from "../ClickOutside.js";
 import type Exigencias from "../Exigencias.js";
 import type Protocol from "../Protocol.js";
+import deleteProtocol from "../protocolsData/deleteProtocol.js";
 
 export default class MenuProtocol {
     private url: string;
@@ -50,10 +51,10 @@ export default class MenuProtocol {
 
         this.openModal = this.openModal.bind(this);
 
-        this.moveToCompleted = this.moveToCompleted.bind(this);
-        this.moveToDefeatedDeposit = this.moveToDefeatedDeposit.bind(this);
-        this.moveToDefeated = this.moveToDefeated.bind(this);
-        this.deleteProtocol = this.deleteProtocol.bind(this);
+        this.moveToCompletedEvent = this.moveToCompletedEvent.bind(this);
+        this.moveToDefeatedDepositEvent = this.moveToDefeatedDepositEvent.bind(this);
+        this.moveToDefeatedEvent = this.moveToDefeatedEvent.bind(this);
+        this.deleteProtocolEvent = this.deleteProtocolEvent.bind(this);
     }
 
     styleModal(event: MouseEvent): void {
@@ -68,84 +69,18 @@ export default class MenuProtocol {
         this.modal.style.top = `${position.y + 20}px`;
     }
 
-    moveToCompleted(event: MouseEvent) {}
+    moveToCompletedEvent(event: MouseEvent) {}
 
-    moveToDefeatedDeposit(event: MouseEvent) {}
+    moveToDefeatedDepositEvent(event: MouseEvent) {}
 
-    moveToDefeated(event: MouseEvent) {}
+    moveToDefeatedEvent(event: MouseEvent) {}
 
-    async deleteProtocol(event: MouseEvent): Promise<void> {
+    async deleteProtocolEvent(event: MouseEvent): Promise<void> {
         event.stopPropagation();
 
-        if (!this.rowTarget) return;
+        if (!this.rowTarget || !this.url) return;
 
-        const idProtocol = this.rowTarget.getAttribute("data-id");
-        if (!idProtocol) return;
-
-        const message: HTMLElement | null = document.querySelector(
-            "[data-delete='alert']"
-        );
-        if (!message) return;
-
-        try {
-            const getResponse: Response = await fetch(`${this.url}/exigencias`);
-            if (!getResponse.ok)
-                throw new Error("Erro ao buscar dados do servidor.");
-
-            const data: Exigencias = await getResponse.json();
-            const keys = Object.keys(data) as Array<keyof Exigencias>;
-            let found = false;
-
-            keys.forEach((key: keyof Exigencias) => {
-                const list = data[key];
-                const index = list.findIndex(
-                    (p: Protocol) => p.protocol === idProtocol
-                );
-
-                if (index !== -1) {
-                    list.splice(index, 1);
-                    found = true;
-                }
-            });
-
-            if (found) {
-                const updateResponse: Response = await fetch(
-                    `${this.url}/exigencias`,
-                    {
-                        method: "PUT",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify(data),
-                    }
-                );
-
-                if (!updateResponse.ok)
-                    throw new Error("Erro ao atualizar dados no servidor.");
-
-                this.rowTarget.remove();
-
-                message.textContent = "Protocolo deletado com sucesso.";
-                message.classList.add("success");
-
-                setTimeout(() => {
-                    message.textContent = "";
-                    message.classList.remove("success");
-                }, 3000);
-            } else {
-                throw new Error("Protocolo não encontrado.");
-            }
-        } catch (error) {
-            message.textContent = "Protocolo não encontrado.";
-            message.classList.add("error");
-
-            setTimeout(() => {
-                message.textContent = "";
-                message.classList.remove("error");
-            }, 3000);
-
-            console.error("Erro em deletar o protocolo:", error);
-        }
+        deleteProtocol(this.rowTarget, this.url);
 
         this.modal?.classList.remove(this.classActiveModal);
         this.clickOutside?.removeEventClickOutside();
@@ -153,20 +88,18 @@ export default class MenuProtocol {
         this.rowTarget = null;
     }
 
-    removeEvents() {}
-
     addEvents(): void {
         if (this.sendCompleted)
-            this.sendCompleted.addEventListener("click", this.moveToCompleted);
+            this.sendCompleted.addEventListener("click", this.moveToCompletedEvent);
         if (this.sendDefeatedDeposit)
             this.sendDefeatedDeposit.addEventListener(
                 "click",
-                this.moveToDefeatedDeposit
+                this.moveToDefeatedDepositEvent
             );
         if (this.sendDefeated)
-            this.sendDefeated.addEventListener("click", this.moveToDefeated);
+            this.sendDefeated.addEventListener("click", this.moveToDefeatedEvent);
         if (this.deleteButton)
-            this.deleteButton.addEventListener("click", this.deleteProtocol);
+            this.deleteButton.addEventListener("click", this.deleteProtocolEvent);
     }
 
     openModal(event: MouseEvent): void {
