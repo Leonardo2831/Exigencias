@@ -1,6 +1,21 @@
 {
   "exigencias": {
-    "public": [
+    "public": [],
+    "doc": [],
+    "title": [],
+    "depositDefeated": [
+      {
+        "protocol": "104111",
+        "dateCadastro": "2026-01-01",
+        "dateEnvio": "2026-01-05",
+        "interessado": "Claudio",
+        "cpf": "144.041.776-82",
+        "dateVencimento": "2026-01-22",
+        "deposito": "",
+        "status": "Depósito Vencido"
+      }
+    ],
+    "defeated": [
       {
         "protocol": "215415",
         "dateCadastro": "2026-01-02",
@@ -9,13 +24,9 @@
         "cpf": "144.041.776-82",
         "dateVencimento": "2026-01-31",
         "deposito": "R$ 10.000,00",
-        "status": "Vigente"
+        "status": "Vencido"
       }
     ],
-    "doc": [],
-    "title": [],
-    "depositDefeated": [],
-    "defeated": [],
     "completed": []
   }
 }
