@@ -1,23 +1,28 @@
-import type Exigencias from "../Exigencias";
-import type Protocol from "../Protocol";
+import type Exigencias from "../Exigencias.js";
+import type Protocol from "../Protocol.js";
+import getProtocols from "./getProtocols.js";
+import putProtocols from "./putProtocols.js";
 
-export default async function deleteProtocol(rowTarget: HTMLElement, url: string) {
-    if (!rowTarget) return;
-
-    const idProtocol = rowTarget.getAttribute("data-id");
-    if (!idProtocol) return;
-
+export default async function deleteProtocol(
+    rowTarget: HTMLElement,
+    url: string,
+    idProtocol: string,
+    messageSuccess: string,
+    messageError: string
+) {
     const message: HTMLElement | null = document.querySelector(
         "[data-delete='alert']"
     );
     if (!message) return;
 
     try {
-        const getResponse: Response = await fetch(`${url}/exigencias`);
-        if (!getResponse.ok)
-            throw new Error("Erro ao buscar dados do servidor.");
+        const data: Exigencias | null = await getProtocols(
+            url,
+            messageSuccess,
+            messageError
+        );
+        if (!data) throw new Error("Erro ao buscar dados do servidor.");
 
-        const data: Exigencias = await getResponse.json();
         const keys = Object.keys(data) as Array<keyof Exigencias>;
         let found = false;
 
@@ -33,35 +38,21 @@ export default async function deleteProtocol(rowTarget: HTMLElement, url: string
             }
         });
 
-        if (found) {
-            const updateResponse: Response = await fetch(
-                `${url}/exigencias`,
-                {
-                    method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(data),
-                }
-            );
+        if (!found) throw new Error(messageError);
 
-            if (!updateResponse.ok)
-                throw new Error("Erro ao atualizar dados no servidor.");
+        putProtocols(url, data, messageSuccess, messageError);
 
-            rowTarget.remove();
+        rowTarget.remove();
 
-            message.textContent = "Protocolo deletado com sucesso.";
-            message.classList.add("success");
+        message.textContent = messageSuccess;
+        message.classList.add("success");
 
-            setTimeout(() => {
-                message.textContent = "";
-                message.classList.remove("success");
-            }, 3000);
-        } else {
-            throw new Error("Protocolo não encontrado.");
-        }
+        setTimeout(() => {
+            message.textContent = "";
+            message.classList.remove("success");
+        }, 3000);
     } catch (error) {
-        message.textContent = "Protocolo não encontrado.";
+        message.textContent = messageError;
         message.classList.add("error");
 
         setTimeout(() => {

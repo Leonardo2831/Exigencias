@@ -52,7 +52,8 @@ export default class MenuProtocol {
         this.openModal = this.openModal.bind(this);
 
         this.moveToCompletedEvent = this.moveToCompletedEvent.bind(this);
-        this.moveToDefeatedDepositEvent = this.moveToDefeatedDepositEvent.bind(this);
+        this.moveToDefeatedDepositEvent =
+            this.moveToDefeatedDepositEvent.bind(this);
         this.moveToDefeatedEvent = this.moveToDefeatedEvent.bind(this);
         this.deleteProtocolEvent = this.deleteProtocolEvent.bind(this);
     }
@@ -80,7 +81,13 @@ export default class MenuProtocol {
 
         if (!this.rowTarget || !this.url) return;
 
-        deleteProtocol(this.rowTarget, this.url);
+        const idProtocol = this.rowTarget.getAttribute("data-id");
+        if (!idProtocol) return;
+
+        const messageSuccess = "Protocolo deletado com sucesso.";
+        const messageError = "Protocolo não encontrado.";
+
+        await deleteProtocol(this.rowTarget, this.url, idProtocol, messageSuccess, messageError);
 
         this.modal?.classList.remove(this.classActiveModal);
         this.clickOutside?.removeEventClickOutside();
@@ -90,16 +97,25 @@ export default class MenuProtocol {
 
     addEvents(): void {
         if (this.sendCompleted)
-            this.sendCompleted.addEventListener("click", this.moveToCompletedEvent);
+            this.sendCompleted.addEventListener(
+                "click",
+                this.moveToCompletedEvent
+            );
         if (this.sendDefeatedDeposit)
             this.sendDefeatedDeposit.addEventListener(
                 "click",
                 this.moveToDefeatedDepositEvent
             );
         if (this.sendDefeated)
-            this.sendDefeated.addEventListener("click", this.moveToDefeatedEvent);
+            this.sendDefeated.addEventListener(
+                "click",
+                this.moveToDefeatedEvent
+            );
         if (this.deleteButton)
-            this.deleteButton.addEventListener("click", this.deleteProtocolEvent);
+            this.deleteButton.addEventListener(
+                "click",
+                this.deleteProtocolEvent
+            );
     }
 
     openModal(event: MouseEvent): void {

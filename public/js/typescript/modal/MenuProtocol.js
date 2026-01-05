@@ -24,7 +24,8 @@ export default class MenuProtocol {
         this.clickOutside = null;
         this.openModal = this.openModal.bind(this);
         this.moveToCompletedEvent = this.moveToCompletedEvent.bind(this);
-        this.moveToDefeatedDepositEvent = this.moveToDefeatedDepositEvent.bind(this);
+        this.moveToDefeatedDepositEvent =
+            this.moveToDefeatedDepositEvent.bind(this);
         this.moveToDefeatedEvent = this.moveToDefeatedEvent.bind(this);
         this.deleteProtocolEvent = this.deleteProtocolEvent.bind(this);
     }
@@ -47,7 +48,12 @@ export default class MenuProtocol {
             event.stopPropagation();
             if (!this.rowTarget || !this.url)
                 return;
-            deleteProtocol(this.rowTarget, this.url);
+            const idProtocol = this.rowTarget.getAttribute("data-id");
+            if (!idProtocol)
+                return;
+            const messageSuccess = "Protocolo deletado com sucesso.";
+            const messageError = "Protocolo não encontrado.";
+            yield deleteProtocol(this.rowTarget, this.url, idProtocol, messageSuccess, messageError);
             (_a = this.modal) === null || _a === void 0 ? void 0 : _a.classList.remove(this.classActiveModal);
             (_b = this.clickOutside) === null || _b === void 0 ? void 0 : _b.removeEventClickOutside();
             this.clickOutside = null;
