@@ -50,9 +50,9 @@ export default function initAfterLoad() {
         '[data-menuProtocol="row"]',
         '[data-menuProtocol="button"]',
         '[data-menuProtocol="modal"]',
-        '[data-send="vencidos"]',
-        '[data-send="depositos"]',
-        '[data-send="concluidos"]',
+        '[data-send="defeated"]',
+        '[data-send="depositDefeated"]',
+        '[data-send="completed"]',
         '[data-send="delete"]',
         "show"
     );
