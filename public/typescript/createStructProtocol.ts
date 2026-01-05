@@ -21,7 +21,9 @@ export default function createStructProtocol(
     row.classList.add("table-row");
 
     const hasDeposit = deposito && deposito !== "R$ 0,00";
-    if (hasDeposit) row.classList.add("row-deposit");
+    if (hasDeposit && state === "Vigente") row.classList.add("row-deposit");
+    else if(state === "Concluído") row.classList.add("row-completed");
+    else if(state !== "Vigente") row.classList.add("row-defeated");
 
     row.innerHTML = `
         <td class="table-cell">${protocol}</td>
@@ -30,9 +32,12 @@ export default function createStructProtocol(
         <td class="table-cell">${interessado}</td>
         <td class="table-cell">${cpf}</td>
         <td class="table-cell">${formatDate(dateVencimento)}</td>
-        <td class="table-cell ${!hasDeposit ? "text-green-moss" : ""}">${
-        hasDeposit ? deposito : "-"
-    }</td>
+        <td class="
+            table-cell 
+            ${!hasDeposit ? "text-green-moss" : ""} 
+        ">
+            ${hasDeposit ? deposito : "-"}
+        </td>
         <td class="table-cell">${state}</td>
         <td data-menuProtocol="button" class="table-cell text-center">
             <div
