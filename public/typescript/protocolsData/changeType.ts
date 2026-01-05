@@ -1,3 +1,8 @@
+import type Exigencias from "../Exigencias.js";
+import type Protocol from "../Protocol.js";
+import getProtocols from "./getProtocols.js";
+import putProtocols from "./putProtocols.js";
+
 export default async function changeType(
     rowTarget: HTMLElement,
     url: string,
@@ -12,26 +17,82 @@ export default async function changeType(
     if (!message) return;
 
     try {
-        switch (type) { 
-            case "depositDefeated": {
+        const data: Exigencias | null = await getProtocols(url, messageSuccess, messageError);
 
-                break;
-            }
-            case "defeated": {
+        if (!data) return;
 
-                break;
-            }
-            case "completed": {
+        let sourceList: Protocol[] | null | undefined = null;
 
-            }
-            default:{
-                throw new Error("Tipo de protocolo inválido.");
-                break; 
+        for (const key of Object.keys(data)) {
+            const list = data[key as keyof Exigencias];
+
+            if (Array.isArray(list)) {
+                if (list.find((protocolItem: Protocol) => protocolItem.protocol === idProtocol)) {
+                    sourceList = list;
+                    break;
+                }
             }
         }
 
-        rowTarget.remove();
+        if (!sourceList) return;
 
+        const protocolIndex: number = sourceList.findIndex(
+            (protocolItem: Protocol) => protocolItem.protocol === idProtocol
+        );
+
+        if (protocolIndex === -1) return;
+
+        const protocolItem = sourceList[protocolIndex];
+
+        let newStatus: string = "";
+        switch (type) {
+            case "completed": {
+                newStatus = "Concluído";
+                break;
+            }
+            case "defeated": {
+                newStatus = "Vencido";
+                break;
+            }
+            case "depositDefeated": {
+                newStatus = "Depósito Vencido";
+                break;
+            }
+            default: {
+                newStatus = "Cancelado";
+                break;
+            }
+        }
+
+        const objectItemProtocol = {
+            protocol: protocolItem.protocol,
+            dateCadastro: protocolItem.dateCadastro,
+            dateEnvio: protocolItem.dateEnvio,
+            interessado: protocolItem.interessado,
+            cpf: protocolItem.cpf,
+            dateVencimento: protocolItem.dateVencimento,
+            deposito: protocolItem.deposito,
+            status: newStatus,
+        };
+
+        sourceList.splice(protocolIndex, 1);
+
+        if (Array.isArray(data[type as keyof Exigencias])) {
+            (data[type as keyof Exigencias] as Protocol[]).push(
+                objectItemProtocol
+            );
+        }
+
+        const success = await putProtocols(
+            url,
+            data,
+            messageSuccess,
+            messageError
+        );
+
+        if(!success) return;
+
+        rowTarget.remove();
         message.textContent = messageSuccess;
         message.classList.add("success");
 
@@ -40,7 +101,7 @@ export default async function changeType(
             message.classList.remove("success");
         }, 3000);
     } catch (error) {
-        console.error("Erro em deletar o protocolo:", error);
+        console.error("Erro em mudar o tipo do protocolo:", error);
 
         message.textContent = messageError;
         message.classList.add("error");
