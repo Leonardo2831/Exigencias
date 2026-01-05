@@ -24,10 +24,7 @@ export default class MenuProtocol {
         this.classActiveModal = classActiveModal;
         this.clickOutside = null;
         this.openModal = this.openModal.bind(this);
-        this.moveToCompletedEvent = this.moveToCompletedEvent.bind(this);
-        this.moveToDefeatedDepositEvent =
-            this.moveToDefeatedDepositEvent.bind(this);
-        this.moveToDefeatedEvent = this.moveToDefeatedEvent.bind(this);
+        this.moveToChoicedOption = this.moveToChoicedOption.bind(this);
         this.deleteProtocolEvent = this.deleteProtocolEvent.bind(this);
     }
     styleModal(event) {
@@ -47,43 +44,20 @@ export default class MenuProtocol {
         this.clickOutside = null;
         this.rowTarget = null;
     }
-    moveToCompletedEvent(event) {
+    moveToChoicedOption(event) {
         return __awaiter(this, void 0, void 0, function* () {
+            var _a;
             event.stopPropagation();
-            if (!this.rowTarget || !this.url)
-                return;
-            const idProtocol = this.rowTarget.getAttribute("data-id");
-            if (!idProtocol)
-                return;
-            const messageSuccess = "Protocolo movido para completos com sucesso.";
-            const messageError = "Protocolo não encontrado.";
-            this.removeEvents();
-        });
-    }
-    moveToDefeatedDepositEvent(event) {
-        return __awaiter(this, void 0, void 0, function* () {
-            event.stopPropagation();
-            if (!this.rowTarget || !this.url)
-                return;
-            const idProtocol = this.rowTarget.getAttribute("data-id");
-            if (!idProtocol)
-                return;
-            const messageSuccess = "Protocolo movido para vencidos com depósito prévio com sucesso.";
-            const messageError = "Protocolo não encontrado.";
-            this.removeEvents();
-        });
-    }
-    moveToDefeatedEvent(event) {
-        return __awaiter(this, void 0, void 0, function* () {
-            event.stopPropagation();
-            if (!this.rowTarget || !this.url)
+            const type = (_a = event.target
+                .closest("[data-send]")) === null || _a === void 0 ? void 0 : _a.getAttribute("data-send");
+            if (!this.rowTarget || !this.url || !type)
                 return;
             const idProtocol = this.rowTarget.getAttribute("data-id");
             if (!idProtocol)
                 return;
             const messageSuccess = "Protocolo movido para vencidos com sucesso.";
             const messageError = "Protocolo não encontrado.";
-            yield changeType(this.rowTarget, this.url, idProtocol, "vencidos", messageSuccess, messageError);
+            yield changeType(this.rowTarget, this.url, idProtocol, type, messageSuccess, messageError);
             this.removeEvents();
         });
     }
@@ -103,11 +77,11 @@ export default class MenuProtocol {
     }
     addEvents() {
         if (this.sendCompleted)
-            this.sendCompleted.addEventListener("click", this.moveToCompletedEvent);
+            this.sendCompleted.addEventListener("click", this.moveToChoicedOption);
         if (this.sendDefeatedDeposit)
-            this.sendDefeatedDeposit.addEventListener("click", this.moveToDefeatedDepositEvent);
+            this.sendDefeatedDeposit.addEventListener("click", this.moveToChoicedOption);
         if (this.sendDefeated)
-            this.sendDefeated.addEventListener("click", this.moveToDefeatedEvent);
+            this.sendDefeated.addEventListener("click", this.moveToChoicedOption);
         if (this.deleteButton)
             this.deleteButton.addEventListener("click", this.deleteProtocolEvent);
     }
