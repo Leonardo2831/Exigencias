@@ -1,6 +1,5 @@
 import ClickOutside from "../ClickOutside.js";
-import type Exigencias from "../Exigencias.js";
-import type Protocol from "../Protocol.js";
+import changeType from "../protocolsData/changeType.js";
 import deleteProtocol from "../protocolsData/deleteProtocol.js";
 
 export default class MenuProtocol {
@@ -70,11 +69,57 @@ export default class MenuProtocol {
         this.modal.style.top = `${position.y + 20}px`;
     }
 
-    moveToCompletedEvent(event: MouseEvent) {}
+    removeEvents() {
+        this.modal?.classList.remove(this.classActiveModal);
+        this.clickOutside?.removeEventClickOutside();
+        this.clickOutside = null;
+        this.rowTarget = null;
+    }
 
-    moveToDefeatedDepositEvent(event: MouseEvent) {}
+    async moveToCompletedEvent(event: MouseEvent) {
+        event.stopPropagation();
 
-    moveToDefeatedEvent(event: MouseEvent) {}
+        if (!this.rowTarget || !this.url) return;
+
+        const idProtocol = this.rowTarget.getAttribute("data-id");
+        if (!idProtocol) return;
+
+        const messageSuccess = "Protocolo movido para completos com sucesso.";
+        const messageError = "Protocolo não encontrado.";
+
+        this.removeEvents();
+    }
+
+    async moveToDefeatedDepositEvent(event: MouseEvent) {
+        event.stopPropagation();
+
+        if (!this.rowTarget || !this.url) return;
+
+        const idProtocol = this.rowTarget.getAttribute("data-id");
+        if (!idProtocol) return;
+
+        const messageSuccess =
+            "Protocolo movido para vencidos com depósito prévio com sucesso.";
+        const messageError = "Protocolo não encontrado.";
+
+        this.removeEvents();
+    }
+
+    async moveToDefeatedEvent(event: MouseEvent) {
+        event.stopPropagation();
+
+        if (!this.rowTarget || !this.url) return;
+
+        const idProtocol = this.rowTarget.getAttribute("data-id");
+        if (!idProtocol) return;
+
+        const messageSuccess = "Protocolo movido para vencidos com sucesso.";
+        const messageError = "Protocolo não encontrado.";
+
+        await changeType(this.rowTarget, this.url, idProtocol, "vencidos", messageSuccess, messageError);
+
+        this.removeEvents();
+    }
 
     async deleteProtocolEvent(event: MouseEvent): Promise<void> {
         event.stopPropagation();
@@ -87,12 +132,15 @@ export default class MenuProtocol {
         const messageSuccess = "Protocolo deletado com sucesso.";
         const messageError = "Protocolo não encontrado.";
 
-        await deleteProtocol(this.rowTarget, this.url, idProtocol, messageSuccess, messageError);
+        await deleteProtocol(
+            this.rowTarget,
+            this.url,
+            idProtocol,
+            messageSuccess,
+            messageError
+        );
 
-        this.modal?.classList.remove(this.classActiveModal);
-        this.clickOutside?.removeEventClickOutside();
-        this.clickOutside = null;
-        this.rowTarget = null;
+        this.removeEvents();
     }
 
     addEvents(): void {

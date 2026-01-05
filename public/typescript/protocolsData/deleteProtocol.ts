@@ -52,6 +52,8 @@ export default async function deleteProtocol(
             message.classList.remove("success");
         }, 3000);
     } catch (error) {
+        console.error("Erro em deletar o protocolo:", error);
+
         message.textContent = messageError;
         message.classList.add("error");
 
@@ -59,7 +61,5 @@ export default async function deleteProtocol(
             message.textContent = "";
             message.classList.remove("error");
         }, 3000);
-
-        console.error("Erro em deletar o protocolo:", error);
     }
 }

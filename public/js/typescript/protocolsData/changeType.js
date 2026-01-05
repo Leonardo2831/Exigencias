@@ -7,30 +7,26 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import getProtocols from "./getProtocols.js";
-import putProtocols from "./putProtocols.js";
-export default function deleteProtocol(rowTarget, url, idProtocol, messageSuccess, messageError) {
+export default function changeType(rowTarget, url, idProtocol, type, messageSuccess, messageError) {
     return __awaiter(this, void 0, void 0, function* () {
         const message = document.querySelector("[data-delete='alert']");
         if (!message)
             return;
         try {
-            const data = yield getProtocols(url, messageSuccess, messageError);
-            if (!data)
-                throw new Error("Erro ao buscar dados do servidor.");
-            const keys = Object.keys(data);
-            let found = false;
-            keys.forEach((key) => {
-                const list = data[key];
-                const index = list.findIndex((p) => p.protocol === idProtocol);
-                if (index !== -1) {
-                    list.splice(index, 1);
-                    found = true;
+            switch (type) {
+                case "depositDefeated": {
+                    break;
                 }
-            });
-            if (!found)
-                throw new Error(messageError);
-            putProtocols(url, data, messageSuccess, messageError);
+                case "defeated": {
+                    break;
+                }
+                case "completed": {
+                }
+                default: {
+                    throw new Error("Tipo de protocolo inválido.");
+                    break;
+                }
+            }
             rowTarget.remove();
             message.textContent = messageSuccess;
             message.classList.add("success");
