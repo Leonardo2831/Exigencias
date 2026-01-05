@@ -1,7 +1,8 @@
 import eventSelect from "../inputs/eventSelect.js";
 import createStructProtocol from "../createStructProtocol.js";
-import postProtocol from "../postProtocol.js";
 import verifyDefeated from "../verifyDefeated.js";
+import putProtocols from "../protocolsData/putProtocols.js";
+import getProtocols from "../protocolsData/getProtocols.js";
 
 export default class NewProtocol {
     form: HTMLFormElement | null;
@@ -65,6 +66,22 @@ export default class NewProtocol {
         });
     }
 
+    async postProtocol(
+        newItemToSave: any,
+        callback: (newItemToSave : any, typeDocument : string, data : any) => void,
+    ) {
+        const messageSuccess = "Protocolo salvo com sucesso";
+        const messageError = "Erro ao salvar o protocolo";
+        
+        const data = await getProtocols(this.urlPost, messageSuccess, messageError);
+
+        if(!data || !this.typeDocument) return false;
+
+        callback(newItemToSave, this.typeDocument.value, data);
+
+        return await putProtocols(this.urlPost, data, messageSuccess, messageError);
+    }
+
     async addProtocol(event: Event) {
         event.preventDefault();
         if (
@@ -112,12 +129,25 @@ export default class NewProtocol {
             status: "Vigente",
         };
 
-        const protocolSaved: boolean = await postProtocol(
+        const protocolSaved: boolean = await this.postProtocol(
             newItemToSave,
-            this.urlPost,
-            this.typeDocument.value,
-            "Protocolo salvo com sucesso",
-            "Erro ao salvar o protocolo"
+            (newItem, typeDocument, data) => {
+                const type = typeDocument;
+
+                if (!type || !data[type]) {
+                    throw new Error(
+                        "Tipo de documento inválido ou não encontrado"
+                    );
+                }
+
+                if (
+                    newItem.deposito == "R$ 0,00" ||
+                    newItem.deposito == "R$ 0,00"
+                )
+                    newItem.deposito = "";
+                // 2. Append to correct array
+                data[type].push(newItem);
+            }
         );
 
         if (protocolSaved) {

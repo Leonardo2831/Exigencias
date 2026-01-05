@@ -7,47 +7,35 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-export default function postProtocol(newItem, urlPost, typeDocument, callback, messageSucess, messageError) {
+export default function getProtocols(urlGet, messageSuccess, messageError) {
     return __awaiter(this, void 0, void 0, function* () {
         const message = document.querySelector("[data-protocol='message']");
         try {
-            // 1. GET current data
-            const getResponse = yield fetch(`${urlPost}/exigencias`);
+            const getResponse = yield fetch(`${urlGet}/exigencias`);
             if (!getResponse.ok)
                 throw new Error("Erro ao buscar dados atuais");
             const data = yield getResponse.json();
-            callback(newItem, typeDocument, data);
-            // 3. PUT updated data back
-            const response = yield fetch(`${urlPost}/exigencias`, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(data),
-            });
-            if (!response.ok)
-                throw new Error("Erro ao salvar o protocolo");
             if (!message)
-                return true;
-            message.textContent = messageSucess;
+                return data;
+            message.textContent = messageSuccess;
             message.classList.add("show", "success");
             setTimeout(() => {
                 message.textContent = "";
                 message.classList.remove("show", "success");
             }, 3000);
-            return true;
+            return data;
         }
         catch (error) {
             console.log(error);
             if (!message)
-                return false;
+                return null;
             message.textContent = messageError;
             message.classList.add("show", "error");
             setTimeout(() => {
                 message.textContent = "";
                 message.classList.remove("show", "error");
             }, 3000);
-            return false;
+            return null;
         }
     });
 }

@@ -1,6 +1,7 @@
 import createStructProtocol from "../createStructProtocol.js";
 import type Exigencias from "../Exigencias.js";
 import type Protocol from "../Protocol.js";
+import getProtocols from "../protocolsData/getProtocols.js";
 import initAfterLoad from "./initAfterLoad.js";
 
 export default class LoadProtocols {
@@ -82,49 +83,16 @@ export default class LoadProtocols {
     }
 
     async fetchProtocols(): Promise<Exigencias | null> {
-        try {
-            const response = await fetch(`${this.url}/exigencias`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
+        const messageSuccess = "Exigências carregadas com sucesso";
+        const messageError = "Erro ao carregar os dados";
 
-            if (!response.ok) throw new Error("Erro na requisição");
+        const data: Exigencias | null = await getProtocols(this.url, messageSuccess, messageError);
 
-            const data = await response.json();
-            if (!data) throw new Error("Erro ao carregar os dados");
+        if(this.icon) this.icon.remove();
 
-            if (this.icon) this.icon.remove();
+        if(!data) return null;
 
-            if (!this.alert) return data;
-            this.alert.textContent = "Exigências carregadas com sucesso";
-            this.alert.classList.add("sucess");
-
-            setTimeout((): void => {
-                if (!this.alert) return;
-                this.alert.textContent = "";
-                this.alert.classList.remove("sucess");
-            }, 3000);
-
-            return data;
-        } catch (error) {
-            console.log(error);
-
-            if (this.icon) this.icon.remove();
-
-            if (!this.alert) return null;
-            this.alert.textContent = "Erro ao carregar os dados";
-            this.alert.classList.add("error");
-
-            setTimeout((): void => {
-                if (!this.alert) return;
-                this.alert.textContent = "";
-                this.alert.classList.remove("error");
-            }, 3000);
-
-            return null;
-        }
+        return data;
     }
 
     async loadProtocols() {

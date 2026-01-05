@@ -8,6 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import createStructProtocol from "../createStructProtocol.js";
+import getProtocols from "../protocolsData/getProtocols.js";
 import initAfterLoad from "./initAfterLoad.js";
 export default class LoadProtocols {
     constructor(url, icon, alert, tablePublic, tableDoc, tableTitle, tableDepositDefeated, tableDefeated, tableCompleted) {
@@ -48,48 +49,14 @@ export default class LoadProtocols {
     }
     fetchProtocols() {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const response = yield fetch(`${this.url}/exigencias`, {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                });
-                if (!response.ok)
-                    throw new Error("Erro na requisição");
-                const data = yield response.json();
-                if (!data)
-                    throw new Error("Erro ao carregar os dados");
-                if (this.icon)
-                    this.icon.remove();
-                if (!this.alert)
-                    return data;
-                this.alert.textContent = "Exigências carregadas com sucesso";
-                this.alert.classList.add("sucess");
-                setTimeout(() => {
-                    if (!this.alert)
-                        return;
-                    this.alert.textContent = "";
-                    this.alert.classList.remove("sucess");
-                }, 3000);
-                return data;
-            }
-            catch (error) {
-                console.log(error);
-                if (this.icon)
-                    this.icon.remove();
-                if (!this.alert)
-                    return null;
-                this.alert.textContent = "Erro ao carregar os dados";
-                this.alert.classList.add("error");
-                setTimeout(() => {
-                    if (!this.alert)
-                        return;
-                    this.alert.textContent = "";
-                    this.alert.classList.remove("error");
-                }, 3000);
+            const messageSuccess = "Exigências carregadas com sucesso";
+            const messageError = "Erro ao carregar os dados";
+            const data = yield getProtocols(this.url, messageSuccess, messageError);
+            if (this.icon)
+                this.icon.remove();
+            if (!data)
                 return null;
-            }
+            return data;
         });
     }
     loadProtocols() {

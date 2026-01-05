@@ -1,18 +1,7 @@
 {
   "exigencias": {
     "public": [],
-    "doc": [
-      {
-        "protocol": "102411",
-        "dateCadastro": "2026-01-01",
-        "dateEnvio": "2026-01-03",
-        "interessado": "Leonardo",
-        "cpf": "144.041.776-82",
-        "dateVencimento": "2026-01-02",
-        "deposito": "R$ 2,00",
-        "status": "Vigente"
-      }
-    ],
+    "doc": [],
     "title": [],
     "depositDefeated": [],
     "defeated": []

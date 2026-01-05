@@ -9,8 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import eventSelect from "../inputs/eventSelect.js";
 import createStructProtocol from "../createStructProtocol.js";
-import postProtocol from "../postProtocol.js";
 import verifyDefeated from "../verifyDefeated.js";
+import putProtocols from "../protocolsData/putProtocols.js";
+import getProtocols from "../protocolsData/getProtocols.js";
 export default class NewProtocol {
     constructor(form, protocol, typeDocument, dateCadastro, dateEnvio, interessado, cpf, dateVencimento, deposito, buttonAdd, urlPost) {
         this.form = document.querySelector(form);
@@ -34,6 +35,17 @@ export default class NewProtocol {
                 input.classList.add("invalid");
                 input.addEventListener("focus", () => input.classList.remove("invalid"));
             }
+        });
+    }
+    postProtocol(newItemToSave, callback) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const messageSuccess = "Protocolo salvo com sucesso";
+            const messageError = "Erro ao salvar o protocolo";
+            const data = yield getProtocols(this.urlPost, messageSuccess, messageError);
+            if (!data || !this.typeDocument)
+                return false;
+            callback(newItemToSave, this.typeDocument.value, data);
+            return yield putProtocols(this.urlPost, data, messageSuccess, messageError);
         });
     }
     addProtocol(event) {
@@ -63,7 +75,17 @@ export default class NewProtocol {
                 deposito: (_1 = this.deposito) === null || _1 === void 0 ? void 0 : _1.value,
                 status: "Vigente",
             };
-            const protocolSaved = yield postProtocol(newItemToSave, this.urlPost, this.typeDocument.value, "Protocolo salvo com sucesso", "Erro ao salvar o protocolo");
+            const protocolSaved = yield this.postProtocol(newItemToSave, (newItem, typeDocument, data) => {
+                const type = typeDocument;
+                if (!type || !data[type]) {
+                    throw new Error("Tipo de documento inválido ou não encontrado");
+                }
+                if (newItem.deposito == "R$ 0,00" ||
+                    newItem.deposito == "R$ 0,00")
+                    newItem.deposito = "";
+                // 2. Append to correct array
+                data[type].push(newItem);
+            });
             if (protocolSaved) {
                 const table = document.querySelector(`[data-protocol='${(_2 = this.typeDocument) === null || _2 === void 0 ? void 0 : _2.value}']`);
                 table === null || table === void 0 ? void 0 : table.appendChild(protocolRow);

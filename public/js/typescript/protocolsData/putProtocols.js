@@ -7,18 +7,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-export default function postProtocol(newItem, urlPost, typeDocument, callback, messageSucess, messageError) {
+export default function putProtocols(url, data, messageSuccess, messageError) {
     return __awaiter(this, void 0, void 0, function* () {
         const message = document.querySelector("[data-protocol='message']");
         try {
-            // 1. GET current data
-            const getResponse = yield fetch(`${urlPost}/exigencias`);
-            if (!getResponse.ok)
-                throw new Error("Erro ao buscar dados atuais");
-            const data = yield getResponse.json();
-            callback(newItem, typeDocument, data);
-            // 3. PUT updated data back
-            const response = yield fetch(`${urlPost}/exigencias`, {
+            const response = yield fetch(`${url}/exigencias`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -29,7 +22,7 @@ export default function postProtocol(newItem, urlPost, typeDocument, callback, m
                 throw new Error("Erro ao salvar o protocolo");
             if (!message)
                 return true;
-            message.textContent = messageSucess;
+            message.textContent = messageSuccess;
             message.classList.add("show", "success");
             setTimeout(() => {
                 message.textContent = "";
