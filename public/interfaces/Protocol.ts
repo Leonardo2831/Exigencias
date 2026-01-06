@@ -6,5 +6,5 @@ export default interface Protocol {
     cpf: string;
     dateVencimento: string;
     deposito: string;
-    status: string;
+    state: string;
 }
