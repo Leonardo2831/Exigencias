@@ -304,7 +304,7 @@
     }
 
     .menu-protocol {
-        @apply hidden opacity-0 invisible animate-fadeRight absolute w-fit font-medium shadow-[0px_1px_2px_0px_rgba(0,0,0,0.1)] text-gray-600;
+        @apply hidden opacity-0 invisible animate-fadeRight absolute z-30 w-fit font-medium shadow-[0px_1px_2px_0px_rgba(0,0,0,0.1)] text-gray-600;
     }
 
     .menu-protocol.show {
