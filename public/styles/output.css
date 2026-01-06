@@ -221,14 +221,23 @@
   .relative {
     position: relative;
   }
+  .sticky {
+    position: sticky;
+  }
   .inset-0 {
     inset: calc(var(--spacing) * 0);
+  }
+  .top-4 {
+    top: calc(var(--spacing) * 4);
   }
   .top-8 {
     top: calc(var(--spacing) * 8);
   }
-  .right-4 {
-    right: calc(var(--spacing) * 4);
+  .top-14 {
+    top: calc(var(--spacing) * 14);
+  }
+  .top-24 {
+    top: calc(var(--spacing) * 24);
   }
   .right-8 {
     right: calc(var(--spacing) * 8);
@@ -236,17 +245,8 @@
   .right-12 {
     right: calc(var(--spacing) * 12);
   }
-  .bottom-2 {
-    bottom: calc(var(--spacing) * 2);
-  }
   .bottom-3 {
     bottom: calc(var(--spacing) * 3);
-  }
-  .bottom-4 {
-    bottom: calc(var(--spacing) * 4);
-  }
-  .left-4 {
-    left: calc(var(--spacing) * 4);
   }
   .left-8 {
     left: calc(var(--spacing) * 8);
@@ -256,6 +256,9 @@
   }
   .z-20 {
     z-index: 20;
+  }
+  .z-30 {
+    z-index: 30;
   }
   .z-50 {
     z-index: 50;
@@ -335,9 +338,6 @@
   }
   .cursor-alias {
     cursor: alias;
-  }
-  .cursor-help {
-    cursor: help;
   }
   .cursor-pointer {
     cursor: pointer;
