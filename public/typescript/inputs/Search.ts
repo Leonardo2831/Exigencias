@@ -1,13 +1,20 @@
-export default class Search{
-    private tablesItems : NodeListOf<HTMLTableElement>;
-    private inputSearch : HTMLInputElement;
-    private classSelected : string;
-    private classInfo : string;
-    
-    constructor(tablesItems : string, inputSearch : string, classSelected : string, classInfo : string){
+export default class Search {
+    private tablesItems: NodeListOf<HTMLTableElement>;
+    private inputSearch: HTMLInputElement;
+    private classSelected: string;
+    private classInfo: string;
+
+    constructor(
+        tablesItems: string,
+        inputSearch: string,
+        classSelected: string,
+        classInfo: string
+    ) {
         this.tablesItems = document.querySelectorAll(tablesItems);
         // Tem que colocar o as porque o typescript entende como um HTMLElement
-        this.inputSearch = document.querySelector(inputSearch) as HTMLInputElement;
+        this.inputSearch = document.querySelector(
+            inputSearch
+        ) as HTMLInputElement;
         this.classSelected = classSelected;
         this.classInfo = classInfo;
 
@@ -16,19 +23,19 @@ export default class Search{
         this.styledInfo = this.styledInfo.bind(this);
     }
 
-    selectTableItems(row : HTMLElement, inputValue : string){
+    selectTableItems(row: HTMLElement, inputValue: string) {
         row?.classList.remove(this.classSelected);
 
         const cols = row.querySelectorAll("td");
 
         cols.forEach((col) => {
-            if(this.cleanString(col.textContent || "").includes(inputValue)){
+            if (this.cleanString(col.textContent || "").includes(inputValue)) {
                 row.classList.add(this.classSelected);
             }
         });
     }
 
-    filterTableItems(inputValue : string){
+    filterTableItems(inputValue: string) {
         this.tablesItems.forEach((table) => {
             const rows = table.querySelectorAll("tr");
             rows.forEach((row) => {
@@ -38,23 +45,27 @@ export default class Search{
     }
 
     cleanString(text: string): string {
-        return text.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase();
+        return text
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .replace(/[.-]/g, "")
+            .toLowerCase();
     }
 
-    cleanText(inputValue : string){
+    cleanText(inputValue: string) {
         const cleanedValue = this.cleanString(inputValue);
         this.filterTableItems(cleanedValue);
     }
 
-    verifyKey(event : KeyboardEvent){
-        if(event.key === 'Enter'){
-            if(this.inputSearch.value === "") return;
+    verifyKey(event: KeyboardEvent) {
+        if (event.key === "Enter") {
+            if (this.inputSearch.value === "") return;
 
             this.cleanText(this.inputSearch.value.toLowerCase());
         }
     }
 
-    removeSelected(){
+    removeSelected() {
         this.tablesItems.forEach((table) => {
             const rows = table.querySelectorAll("tr");
 
@@ -64,23 +75,30 @@ export default class Search{
         });
     }
 
-    styledInfo(){
-        if(!this.inputSearch.classList.contains(this.classInfo) && this.inputSearch.value !== ""){
-            this.inputSearch.parentElement?.nextElementSibling?.classList.add(this.classInfo);
+    styledInfo() {
+        if (
+            !this.inputSearch.classList.contains(this.classInfo) &&
+            this.inputSearch.value !== ""
+        ) {
+            this.inputSearch.parentElement?.nextElementSibling?.classList.add(
+                this.classInfo
+            );
         } else {
-            this.inputSearch.parentElement?.nextElementSibling?.classList.remove(this.classInfo);
+            this.inputSearch.parentElement?.nextElementSibling?.classList.remove(
+                this.classInfo
+            );
         }
     }
 
-    addEventInput(){
-        this.inputSearch.addEventListener('keydown', this.verifyKey);
-        this.inputSearch.addEventListener('blur', this.removeSelected);
-        this.inputSearch.addEventListener('focus', this.removeSelected);
-        this.inputSearch.addEventListener('input', this.styledInfo);
+    addEventInput() {
+        this.inputSearch.addEventListener("keydown", this.verifyKey);
+        this.inputSearch.addEventListener("blur", this.removeSelected);
+        this.inputSearch.addEventListener("focus", this.removeSelected);
+        this.inputSearch.addEventListener("input", this.styledInfo);
     }
 
     init(): Search {
-        if(this.inputSearch) this.addEventInput();
+        if (this.inputSearch) this.addEventInput();
 
         return this;
     }

@@ -27,14 +27,18 @@ export default class Search {
         });
     }
     cleanString(text) {
-        return text.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase();
+        return text
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .replace(/[.-]/g, "")
+            .toLowerCase();
     }
     cleanText(inputValue) {
         const cleanedValue = this.cleanString(inputValue);
         this.filterTableItems(cleanedValue);
     }
     verifyKey(event) {
-        if (event.key === 'Enter') {
+        if (event.key === "Enter") {
             if (this.inputSearch.value === "")
                 return;
             this.cleanText(this.inputSearch.value.toLowerCase());
@@ -50,7 +54,8 @@ export default class Search {
     }
     styledInfo() {
         var _a, _b, _c, _d;
-        if (!this.inputSearch.classList.contains(this.classInfo) && this.inputSearch.value !== "") {
+        if (!this.inputSearch.classList.contains(this.classInfo) &&
+            this.inputSearch.value !== "") {
             (_b = (_a = this.inputSearch.parentElement) === null || _a === void 0 ? void 0 : _a.nextElementSibling) === null || _b === void 0 ? void 0 : _b.classList.add(this.classInfo);
         }
         else {
@@ -58,10 +63,10 @@ export default class Search {
         }
     }
     addEventInput() {
-        this.inputSearch.addEventListener('keydown', this.verifyKey);
-        this.inputSearch.addEventListener('blur', this.removeSelected);
-        this.inputSearch.addEventListener('focus', this.removeSelected);
-        this.inputSearch.addEventListener('input', this.styledInfo);
+        this.inputSearch.addEventListener("keydown", this.verifyKey);
+        this.inputSearch.addEventListener("blur", this.removeSelected);
+        this.inputSearch.addEventListener("focus", this.removeSelected);
+        this.inputSearch.addEventListener("input", this.styledInfo);
     }
     init() {
         if (this.inputSearch)
