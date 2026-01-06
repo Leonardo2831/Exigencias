@@ -33,11 +33,18 @@ export default class MenuProtocol {
         if (!this.modal)
             return;
         const position = {
-            x: event.clientX,
-            y: event.clientY,
+            x: event.pageX,
+            y: event.pageY,
         };
-        this.modal.style.left = `${position.x - 220}px`;
-        this.modal.style.top = `${position.y + 20}px`;
+        const heightModal = this.modal.offsetHeight;
+        if (event.clientY + heightModal > window.innerHeight) {
+            this.modal.style.left = `${position.x - 220}px`;
+            this.modal.style.top = `${position.y - heightModal - 10}px`;
+        }
+        else {
+            this.modal.style.left = `${position.x - 220}px`;
+            this.modal.style.top = `${position.y + 20}px`;
+        }
     }
     removeEvents() {
         var _a, _b;
