@@ -92,15 +92,6 @@ export default class NewProtocol {
             !this.cpf?.value ||
             !this.dateVencimento?.value
         ) {
-            console.log(
-                this.protocol?.value,
-                this.dateCadastro?.value,
-                this.dateEnvio?.value,
-                this.interessado?.value,
-                this.cpf?.value,
-                this.dateVencimento?.value
-            );
-
             this.addClassInvalid();
             return;
         }
