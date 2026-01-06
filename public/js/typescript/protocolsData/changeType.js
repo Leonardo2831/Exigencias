@@ -66,7 +66,6 @@ export default function changeType(rowTarget, url, idProtocol, type, messageSucc
             };
             const rowProtocol = createStructProtocol(objectItemProtocol.protocol, objectItemProtocol.dateCadastro, objectItemProtocol.dateEnvio, objectItemProtocol.interessado, objectItemProtocol.cpf, objectItemProtocol.dateVencimento, objectItemProtocol.deposito, objectItemProtocol.state);
             const table = document.querySelector(`[data-load='${type}']`);
-            console.log(table);
             if (!table)
                 return;
             table.appendChild(rowProtocol);
