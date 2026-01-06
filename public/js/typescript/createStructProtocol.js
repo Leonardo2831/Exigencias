@@ -19,7 +19,7 @@ export default function createStructProtocol(protocol, dateCadastro, dateEnvio, 
         <td class="table-cell">${protocol.slice(0, 3).concat(".").concat(protocol.slice(3, 6))}</td>
         <td class="table-cell">${formatDate(dateCadastro)}</td>
         <td class="table-cell">${formatDate(dateEnvio)}</td>
-        <td class="table-cell">${interessado}</td>
+        <td class="table-cell uppercase">${interessado}</td>
         <td class="table-cell">${cpf}</td>
         <td class="table-cell">${formatDate(dateVencimento)}</td>
         <td class="
