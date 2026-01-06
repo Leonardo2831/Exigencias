@@ -19,5 +19,5 @@ export default function initAfterLoad() {
     newProtocol.init();
     const menuProtocol = new MenuProtocol("http://localhost:3000", '[data-menuProtocol="row"]', '[data-menuProtocol="button"]', '[data-menuProtocol="modal"]', '[data-send="defeated"]', '[data-send="depositDefeated"]', '[data-send="completed"]', '[data-send="copy"]', '[data-send="delete"]', "show");
     addEventsWindow(menuProtocol);
-    verifyDefeated("[data-defeated]");
+    verifyDefeated("data-defeated");
 }

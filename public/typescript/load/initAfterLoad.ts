@@ -59,5 +59,5 @@ export default function initAfterLoad() {
     );
     addEventsWindow(menuProtocol);
 
-    verifyDefeated("[data-defeated]");
+    verifyDefeated("data-defeated");
 }
