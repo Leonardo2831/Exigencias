@@ -1,6 +1,7 @@
 import ModalProtocol from "./modal/ModalProtocol.js";
 import StyleDeposit from "./inputs/StyleDeposit.js";
 import LoadProtocols from "./load/LoadProtocols.js";
+import inputProtocol from "./inputs/inputProtocol.js";
 
 const modalProtocol = new ModalProtocol(
     '[data-protocol="buttonNew"]',
@@ -26,3 +27,5 @@ const loadProtocols = new LoadProtocols(
     '[data-load="completed"]'
 );
 loadProtocols.init();
+
+inputProtocol('[data-protocol="protocolo"]');
