@@ -158,6 +158,7 @@ export default class NewProtocol {
         }
 
         this.form?.reset();
+        this.protocol?.focus();
         verifyDefeated("[data-defeated]");
     }
 
