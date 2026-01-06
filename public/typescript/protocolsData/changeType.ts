@@ -1,3 +1,4 @@
+import createStructProtocol from "../createStructProtocol.js";
 import type Exigencias from "../Exigencias.js";
 import type Protocol from "../Protocol.js";
 import getProtocols from "./getProtocols.js";
@@ -17,7 +18,11 @@ export default async function changeType(
     if (!message) return;
 
     try {
-        const data: Exigencias | null = await getProtocols(url, messageSuccess, messageError);
+        const data: Exigencias | null = await getProtocols(
+            url,
+            messageSuccess,
+            messageError
+        );
 
         if (!data) return;
 
@@ -27,7 +32,12 @@ export default async function changeType(
             const list = data[key as keyof Exigencias];
 
             if (Array.isArray(list)) {
-                if (list.find((protocolItem: Protocol) => protocolItem.protocol === idProtocol)) {
+                if (
+                    list.find(
+                        (protocolItem: Protocol) =>
+                            protocolItem.protocol === idProtocol
+                    )
+                ) {
                     sourceList = list;
                     break;
                 }
@@ -72,8 +82,26 @@ export default async function changeType(
             cpf: protocolItem.cpf,
             dateVencimento: protocolItem.dateVencimento,
             deposito: protocolItem.deposito,
-            status: newStatus,
+            state: newStatus,
         };
+
+        const rowProtocol: HTMLElement = createStructProtocol(
+            objectItemProtocol.protocol,
+            objectItemProtocol.dateCadastro,
+            objectItemProtocol.dateEnvio,
+            objectItemProtocol.interessado,
+            objectItemProtocol.cpf,
+            objectItemProtocol.dateVencimento,
+            objectItemProtocol.deposito,
+            objectItemProtocol.state
+        );
+
+        const table: HTMLElement | null = document.querySelector(
+            `[data-load='${type}']`
+        );
+        
+        if (!table) return;
+        table.appendChild(rowProtocol);
 
         sourceList.splice(protocolIndex, 1);
 
@@ -90,7 +118,7 @@ export default async function changeType(
             messageError
         );
 
-        if(!success) return;
+        if (!success) return;
 
         rowTarget.remove();
         message.textContent = messageSuccess;
