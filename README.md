@@ -1,4 +1,4 @@
-# Exigências - Gerenciador de Exigências Cartorárias
+<img width="1920" height="912" alt="image" src="https://github.com/user-attachments/assets/9858b45a-a033-4930-baed-6726818c093a" /># Exigências - Gerenciador de Exigências Cartorárias
 
 Este projeto foi desenvolvido para otimizar e facilitar o gerenciamento de notas de exigência enviadas aos clientes do Cartório de Registro de Imóveis de Andradas. A aplicação permite o controle eficaz de prazos, depósitos prévios e status dos protocolos, garantindo maior agilidade e organização no fluxo do meu trabalho.
 
@@ -29,6 +29,12 @@ Este projeto foi desenvolvido para otimizar e facilitar o gerenciamento de notas
   <!-- <img src="caminho/para/imagem.png" alt="Descrição da Imagem" width="600"> -->
   
   <p><i>Imagens do projeto em funcionamento</i></p>
+
+  <img width="1920" height="917" alt="image" src="https://github.com/user-attachments/assets/cea805ab-028d-49c0-8251-cb80ef422070" />
+
+  <img width="1920" height="912" alt="image" src="https://github.com/user-attachments/assets/880dae1f-3304-4c23-bb4f-b4bedf8c11e3" />
+
+  <img width="1919" height="918" alt="image" src="https://github.com/user-attachments/assets/714b6de0-0ddf-4208-bcd6-62bf4968fec5" />
 </div>
 
 ## �🚀 Tecnologias Utilizadas
