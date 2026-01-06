@@ -3,8 +3,5 @@ export default function inputProtocol(dataInput) {
     if (!input)
         return;
     input.maxLength = 6;
-    input.addEventListener('input', () => {
-        input.value = input.value.replace(/[^0-9]/g, '');
-        console.log(input.value);
-    });
+    input.addEventListener('input', () => input.value = input.value.replace(/[^0-9]/g, ''));
 }

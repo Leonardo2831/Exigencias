@@ -7,6 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+import createStructProtocol from "../createStructProtocol.js";
 import getProtocols from "./getProtocols.js";
 import putProtocols from "./putProtocols.js";
 export default function changeType(rowTarget, url, idProtocol, type, messageSuccess, messageError) {
@@ -61,8 +62,14 @@ export default function changeType(rowTarget, url, idProtocol, type, messageSucc
                 cpf: protocolItem.cpf,
                 dateVencimento: protocolItem.dateVencimento,
                 deposito: protocolItem.deposito,
-                status: newStatus,
+                state: newStatus,
             };
+            const rowProtocol = createStructProtocol(objectItemProtocol.protocol, objectItemProtocol.dateCadastro, objectItemProtocol.dateEnvio, objectItemProtocol.interessado, objectItemProtocol.cpf, objectItemProtocol.dateVencimento, objectItemProtocol.deposito, objectItemProtocol.state);
+            const table = document.querySelector(`[data-load='${type}']`);
+            console.log(table);
+            if (!table)
+                return;
+            table.appendChild(rowProtocol);
             sourceList.splice(protocolIndex, 1);
             if (Array.isArray(data[type])) {
                 data[type].push(objectItemProtocol);

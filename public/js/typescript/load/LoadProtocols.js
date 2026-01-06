@@ -41,7 +41,7 @@ export default class LoadProtocols {
             const table = tables[key];
             if (table && protocolsCheck) {
                 protocolsCheck.forEach((protocolObject) => {
-                    const row = createStructProtocol(protocolObject.protocol, protocolObject.dateCadastro, protocolObject.dateEnvio, protocolObject.interessado, protocolObject.cpf, protocolObject.dateVencimento, protocolObject.deposito, protocolObject.status);
+                    const row = createStructProtocol(protocolObject.protocol, protocolObject.dateCadastro, protocolObject.dateEnvio, protocolObject.interessado, protocolObject.cpf, protocolObject.dateVencimento, protocolObject.deposito, protocolObject.state);
                     table.appendChild(row);
                 });
             }

@@ -73,9 +73,9 @@ export default class LoadProtocols {
                         protocolObject.cpf,
                         protocolObject.dateVencimento,
                         protocolObject.deposito,
-                        protocolObject.status
+                        protocolObject.state
                     );
-
+                    
                     table.appendChild(row);
                 });
             }
