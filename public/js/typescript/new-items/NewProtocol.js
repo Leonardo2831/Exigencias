@@ -72,7 +72,7 @@ export default class NewProtocol {
                 cpf: (_t = this.cpf) === null || _t === void 0 ? void 0 : _t.value,
                 dateVencimento: (_u = this.dateVencimento) === null || _u === void 0 ? void 0 : _u.value,
                 deposito: (_v = this.deposito) === null || _v === void 0 ? void 0 : _v.value,
-                status: "Vigente",
+                state: "Vigente",
             };
             const protocolSaved = yield this.postProtocol(newItemToSave, (newItem, typeDocument, data) => {
                 const type = typeDocument;

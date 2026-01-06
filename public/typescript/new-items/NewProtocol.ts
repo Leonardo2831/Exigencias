@@ -3,6 +3,7 @@ import createStructProtocol from "../createStructProtocol.js";
 import verifyDefeated from "../verifyDefeated.js";
 import putProtocols from "../protocolsData/putProtocols.js";
 import getProtocols from "../protocolsData/getProtocols.js";
+import type Protocol from "../Protocol.js";
 
 export default class NewProtocol {
     form: HTMLFormElement | null;
@@ -109,7 +110,7 @@ export default class NewProtocol {
             "Vigente"
         );
 
-        const newItemToSave = {
+        const newItemToSave: Protocol = {
             protocol: this.protocol?.value,
             dateCadastro: this.dateCadastro?.value,
             dateEnvio: this.dateEnvio?.value,
@@ -117,7 +118,7 @@ export default class NewProtocol {
             cpf: this.cpf?.value,
             dateVencimento: this.dateVencimento?.value,
             deposito: this.deposito?.value,
-            status: "Vigente",
+            state: "Vigente",
         };
 
         const protocolSaved: boolean = await this.postProtocol(
