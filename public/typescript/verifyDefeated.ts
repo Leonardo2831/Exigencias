@@ -1,8 +1,9 @@
 import dayjs from "dayjs";
 
 export default function verifyDefeated(dataProtocol: string) {
-    const protocolsItems: NodeListOf<HTMLElement> =
-        document.querySelectorAll(`[${dataProtocol}]`);
+    const protocolsItems: NodeListOf<HTMLElement> = document.querySelectorAll(
+        `[${dataProtocol}]`
+    );
 
     if (!protocolsItems.length) return;
 
@@ -16,9 +17,9 @@ export default function verifyDefeated(dataProtocol: string) {
         const dateDefeatedDayjs: dayjs.Dayjs = dayjs(dateDefeated);
         const hasDeposit = protocol.classList.contains("row-deposit");
 
-        if (today.isAfter(dateDefeatedDayjs) && hasDeposit) {
+        if (today.isAfter(dateDefeatedDayjs, "day") && hasDeposit) {
             protocol.classList.replace("row-deposit", "row-defeated");
-        } else if (today.isAfter(dateDefeatedDayjs) && !hasDeposit) {
+        } else if (today.isAfter(dateDefeatedDayjs, "day") && !hasDeposit) {
             protocol.classList.add("row-defeated");
         }
     });

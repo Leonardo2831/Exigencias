@@ -10,10 +10,10 @@ export default function verifyDefeated(dataProtocol) {
             return;
         const dateDefeatedDayjs = dayjs(dateDefeated);
         const hasDeposit = protocol.classList.contains("row-deposit");
-        if (today.isAfter(dateDefeatedDayjs) && hasDeposit) {
+        if (today.isAfter(dateDefeatedDayjs, "day") && hasDeposit) {
             protocol.classList.replace("row-deposit", "row-defeated");
         }
-        else if (today.isAfter(dateDefeatedDayjs) && !hasDeposit) {
+        else if (today.isAfter(dateDefeatedDayjs, "day") && !hasDeposit) {
             protocol.classList.add("row-defeated");
         }
     });
