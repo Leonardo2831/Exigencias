@@ -1,16 +1,19 @@
 import dayjs from "dayjs";
 export default function verifyDefeated(dataProtocol) {
-    const protocolsItems = document.querySelectorAll(dataProtocol);
+    const protocolsItems = document.querySelectorAll(`[${dataProtocol}]`);
+    if (!protocolsItems.length)
+        return;
     protocolsItems.forEach((protocol) => {
         const today = dayjs();
         const dateDefeated = protocol.getAttribute(dataProtocol) || "";
+        if (!dateDefeated)
+            return;
         const dateDefeatedDayjs = dayjs(dateDefeated);
         const hasDeposit = protocol.classList.contains("row-deposit");
-        console.log(dateDefeatedDayjs.toDate(), today.toDate());
-        if (dateDefeatedDayjs.isBefore(today) && hasDeposit) {
+        if (today.isAfter(dateDefeatedDayjs) && hasDeposit) {
             protocol.classList.replace("row-deposit", "row-defeated");
         }
-        else if (dateDefeatedDayjs.isBefore(today) && !hasDeposit) {
+        else if (today.isAfter(dateDefeatedDayjs) && !hasDeposit) {
             protocol.classList.add("row-defeated");
         }
     });
