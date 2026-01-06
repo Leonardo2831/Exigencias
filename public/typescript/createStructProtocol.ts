@@ -26,7 +26,7 @@ export default function createStructProtocol(
     else if(state !== "Vigente") row.classList.add("row-defeated");
 
     row.innerHTML = `
-        <td class="table-cell">${protocol}</td>
+        <td class="table-cell">${protocol.slice(0, 3).concat(".").concat(protocol.slice(3, 6))}</td>
         <td class="table-cell">${formatDate(dateCadastro)}</td>
         <td class="table-cell">${formatDate(dateEnvio)}</td>
         <td class="table-cell">${interessado}</td>
