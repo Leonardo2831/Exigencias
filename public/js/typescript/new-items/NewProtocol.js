@@ -91,7 +91,7 @@ export default class NewProtocol {
             }
             (_x = this.form) === null || _x === void 0 ? void 0 : _x.reset();
             (_y = this.protocol) === null || _y === void 0 ? void 0 : _y.focus();
-            verifyDefeated("[data-defeated]");
+            verifyDefeated("data-defeated");
         });
     }
     addEvents() {
