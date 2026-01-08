@@ -1,4 +1,5 @@
 import addEventsWindow from "../events-window/addEventsWindow.js";
+import Reingresso from "../inputs/Reingresso.js";
 import Search from "../inputs/Search.js";
 import ValidateCNPJ from "../inputs/ValidateCNPJ.js";
 import ValidateCPF from "../inputs/ValidateCPF.js";
@@ -18,6 +19,7 @@ export default function initAfterLoad() {
     const newProtocol = new NewProtocol('[data-protocol="form"]', '[data-protocol="protocolo"]', '[data-protocol="typeDocument"]', '[data-protocol="dateCadastro"]', '[data-protocol="dateEnvio"]', '[data-protocol="interessado"]', '[data-protocol="cpf"]', '[data-protocol="dateVencimento"]', '[data-protocol="deposit"]', '[data-protocol="buttonAdd"]', "http://localhost:3000");
     newProtocol.init();
     const menuProtocol = new MenuProtocol("http://localhost:3000", '[data-menuProtocol="row"]', '[data-menuProtocol="button"]', '[data-menuProtocol="modal"]', '[data-send="defeated"]', '[data-send="depositDefeated"]', '[data-send="completed"]', '[data-send="copy"]', '[data-send="delete"]', "show");
-    addEventsWindow(menuProtocol);
+    const reingresso = new Reingresso('[data-defeated="date"]', "http://localhost:3000");
+    addEventsWindow(menuProtocol, reingresso);
     verifyDefeated("data-defeated");
 }

@@ -21,7 +21,7 @@ export default function createStructProtocol(protocol, dateCadastro, dateEnvio, 
         <td class="table-cell">${formatDate(dateEnvio)}</td>
         <td class="table-cell uppercase">${interessado}</td>
         <td class="table-cell">${cpf}</td>
-        <td class="table-cell">${formatDate(dateVencimento)}</td>
+        <td class="table-cell" data-defeated="date">${formatDate(dateVencimento)}</td>
         <td class="
             table-cell 
             ${!hasDeposit ? "text-green-moss" : ""} 
