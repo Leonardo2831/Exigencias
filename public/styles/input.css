@@ -319,7 +319,7 @@
     }
 
     .message {
-        @apply hidden opacity-0 invisible animate-fadeTop absolute bottom-10 left-0 right-0 mx-auto text-center min-w-fit w-full max-w-[800px] rounded-md px-5 py-3 font-medium text-lg shadow-[0px_1px_2px_0px_rgba(0,0,0,0.3)];
+        @apply hidden opacity-0 invisible animate-fadeTop fixed bottom-10 left-0 right-0 mx-auto text-center min-w-fit w-full max-w-[800px] rounded-md px-5 py-3 font-medium text-lg shadow-[0px_1px_2px_0px_rgba(0,0,0,0.3)];
     }
 
     .message.success {

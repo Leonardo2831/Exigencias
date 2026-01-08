@@ -970,7 +970,7 @@
   }
   .message {
     visibility: hidden;
-    position: absolute;
+    position: fixed;
     right: calc(var(--spacing) * 0);
     bottom: calc(var(--spacing) * 10);
     left: calc(var(--spacing) * 0);
