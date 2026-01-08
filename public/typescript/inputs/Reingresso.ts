@@ -1,7 +1,8 @@
 import getProtocols from "../protocolsData/getProtocols.js";
 import putProtocols from "../protocolsData/putProtocols.js";
 import dayjs from "dayjs";
-import type Exigencias from "../Exigencias";
+import type Exigencias from "../Exigencias.js";
+import verifyDefeated from "../verifyDefeated.js";
 
 export default class Reingresso {
     datasetDefeated: string;
@@ -45,6 +46,7 @@ export default class Reingresso {
                 // Update date
                 data[list][index].dateVencimento = date;
                 found = true;
+                verifyDefeated('data-defeated');
                 break;
             }
         }
@@ -64,8 +66,6 @@ export default class Reingresso {
             this.datasetDefeated
         );
         this.rowTarget = (event.target as HTMLElement).closest("tr");
-
-        console.log("houve mudança", this.rowTarget);
 
         if (!itemReingresso || !itemReingresso.textContent) return;
 
@@ -106,17 +106,21 @@ export default class Reingresso {
             const newValue = input.value;
             itemReingresso.textContent = newValue;
 
+            const [day, month, year] = newValue.split("/");
+            const dateObj = dayjs(`${year}-${month}-${day}`);
+
+            if (!dateObj.isValid()) {
+                itemReingresso.classList.add("invalid");
+                return;
+            }
+
+            itemReingresso.classList.remove("invalid");
+
             if (newValue !== oldValue) {
                 this.rowTarget = itemReingresso.closest("tr");
-                console.log("houve mudança", this.rowTarget);
 
-                const [day, month, year] = newValue.split("/");
-                const dateObj = dayjs(`${year}-${month}-${day}`);
-
-                if (dateObj.isValid()) {
-                    const date = `${year}-${month}-${day}`;
-                    await this.fetchDate(date);
-                }
+                const date = `${year}-${month}-${day}`;
+                await this.fetchDate(date);
             }
         });
     }

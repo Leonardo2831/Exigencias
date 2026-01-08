@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import getProtocols from "../protocolsData/getProtocols.js";
 import putProtocols from "../protocolsData/putProtocols.js";
 import dayjs from "dayjs";
+import verifyDefeated from "../verifyDefeated.js";
 export default class Reingresso {
     constructor(datasetDefeated, url) {
         this.datasetDefeated = datasetDefeated;
@@ -41,6 +42,7 @@ export default class Reingresso {
                     // Update date
                     data[list][index].dateVencimento = date;
                     found = true;
+                    verifyDefeated('data-defeated');
                     break;
                 }
             }
@@ -53,7 +55,6 @@ export default class Reingresso {
         return __awaiter(this, void 0, void 0, function* () {
             const itemReingresso = event.target.closest(this.datasetDefeated);
             this.rowTarget = event.target.closest("tr");
-            console.log("houve mudança", this.rowTarget);
             if (!itemReingresso || !itemReingresso.textContent)
                 return;
             const [day, month, year] = itemReingresso.textContent.split("/");
@@ -81,15 +82,17 @@ export default class Reingresso {
         input.addEventListener("blur", () => __awaiter(this, void 0, void 0, function* () {
             const newValue = input.value;
             itemReingresso.textContent = newValue;
+            const [day, month, year] = newValue.split("/");
+            const dateObj = dayjs(`${year}-${month}-${day}`);
+            if (!dateObj.isValid()) {
+                itemReingresso.classList.add("invalid");
+                return;
+            }
+            itemReingresso.classList.remove("invalid");
             if (newValue !== oldValue) {
                 this.rowTarget = itemReingresso.closest("tr");
-                console.log("houve mudança", this.rowTarget);
-                const [day, month, year] = newValue.split("/");
-                const dateObj = dayjs(`${year}-${month}-${day}`);
-                if (dateObj.isValid()) {
-                    const date = `${year}-${month}-${day}`;
-                    yield this.fetchDate(date);
-                }
+                const date = `${year}-${month}-${day}`;
+                yield this.fetchDate(date);
             }
         }));
     }
