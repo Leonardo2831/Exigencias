@@ -20,7 +20,7 @@ export default function verifyDefeated(dataProtocol: string) {
         if (today.isAfter(dateDefeatedDayjs, "day") && hasDeposit) {
             protocol.classList.replace("row-deposit", "row-defeated");
         } else if (today.isAfter(dateDefeatedDayjs, "day") && !hasDeposit) {
-            protocol.classList.add("row-defeated");
+            if(!protocol.classList.contains("row-completed")) protocol.classList.add("row-defeated");
         }
     });
 }
