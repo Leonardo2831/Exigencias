@@ -1,4 +1,5 @@
 import addEventsWindow from "../events-window/addEventsWindow.js";
+import Reingresso from "../inputs/Reingresso.js";
 import Search from "../inputs/Search.js";
 import ValidateCNPJ from "../inputs/ValidateCNPJ.js";
 import ValidateCPF from "../inputs/ValidateCPF.js";
@@ -57,7 +58,13 @@ export default function initAfterLoad() {
         '[data-send="delete"]',
         "show"
     );
-    addEventsWindow(menuProtocol);
+
+    const reingresso = new Reingresso(
+        '[data-defeated="date"]',
+        "http://localhost:3000"
+    );
+
+    addEventsWindow(menuProtocol, reingresso);
 
     verifyDefeated("data-defeated");
 }
