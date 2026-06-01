@@ -25,7 +25,7 @@ export default class Reingresso {
 
         const data: Exigencias | null = await getProtocols(
             this.url,
-            "Dados atualizados com sucesso",
+            "Dados atualizados pego com sucesso",
             "Erro ao atualizar dados"
         );
         if (!data) return;
@@ -36,28 +36,36 @@ export default class Reingresso {
             "doc",
             "depositDefeated",
             "defeated",
+            "title",
+            "completed",
         ];
         let found = false;
 
         for (const list of lists) {
-            const index = data[list].findIndex((item) => item.protocol === id);
+            const index = data[list].findIndex((item) => {
+                console.log(id);
+                return item.protocol === id;
+            });
 
             if (index !== -1) {
+                console.log("fez update");
+
                 // Update date
                 data[list][index].dateVencimento = date;
                 found = true;
-                verifyDefeated('data-defeated');
                 break;
             }
         }
 
         if (found) {
-            await putProtocols(
+            const putBoolean = await putProtocols(
                 this.url,
                 data,
                 "Data atualizada com sucesso",
                 "Erro ao atualizar data"
             );
+
+            if (putBoolean) verifyDefeated("data-defeated");
         }
     }
 

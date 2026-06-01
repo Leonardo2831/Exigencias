@@ -25,7 +25,7 @@ export default class Reingresso {
             const id = this.rowTarget.getAttribute("data-id");
             if (!id)
                 return;
-            const data = yield getProtocols(this.url, "Dados atualizados com sucesso", "Erro ao atualizar dados");
+            const data = yield getProtocols(this.url, "Dados atualizados pego com sucesso", "Erro ao atualizar dados");
             if (!data)
                 return;
             // Find the protocol across all lists
@@ -34,20 +34,27 @@ export default class Reingresso {
                 "doc",
                 "depositDefeated",
                 "defeated",
+                "title",
+                "completed",
             ];
             let found = false;
             for (const list of lists) {
-                const index = data[list].findIndex((item) => item.protocol === id);
+                const index = data[list].findIndex((item) => {
+                    console.log(id);
+                    return item.protocol === id;
+                });
                 if (index !== -1) {
+                    console.log("fez update");
                     // Update date
                     data[list][index].dateVencimento = date;
                     found = true;
-                    verifyDefeated('data-defeated');
                     break;
                 }
             }
             if (found) {
-                yield putProtocols(this.url, data, "Data atualizada com sucesso", "Erro ao atualizar data");
+                const putBoolean = yield putProtocols(this.url, data, "Data atualizada com sucesso", "Erro ao atualizar data");
+                if (putBoolean)
+                    verifyDefeated("data-defeated");
             }
         });
     }
